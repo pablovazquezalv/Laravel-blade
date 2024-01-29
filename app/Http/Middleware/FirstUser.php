@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 
 class FirstUser
 {
@@ -17,11 +18,17 @@ class FirstUser
     public function handle(Request $request, Closure $next): Response
     {
 
-        //si el usuario no tiene rol o es igual a 2
-        if($request->user()->rol_id == 2 || $request->user()->rol_id == null){
-            
-        return redirect()->route('app.index');
+        $userId = session('user_id');
+        
+        if($userId)
+        {
+            $user = User::find($userId);
+            if($user->rol_id === 1)
+            {
+                return $next($request);
+            }
         }
-        return $next($request);
+      
+        return redirect()->route('app.index');
     }
 }

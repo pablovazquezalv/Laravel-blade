@@ -6,20 +6,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Rules\ReCapchat;
-use Faker\Core\Number;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use App\Exceptions\MethodNotAllowed;
 use Illuminate\Support\Facades\Log;
+use App\Jobs\SendEmail;
 
 class UserController extends Controller
 {
        
+    
     public function register(Request $request)
     {   
        
@@ -137,19 +137,20 @@ class UserController extends Controller
                 //si es usuario 1 (admin) le pone contraseña (1), y correo de validacion .. (2)
                 // puede meter telefono y otro codigo(3) entra al inicio
 
-                //si es usuario 2(guest) solo contraseña y entra al inicio
                 if($user->rol_id==1)
                 {
-                  $url = URL::temporarySignedRoute(
-                        'send.whatsapp', now()->addMinutes(30), ['id' => $user->id]
-                    );
-                  Mail::to($user->email)->send(new \App\Mail\UserLogin($user,$url));
+                  $url = URL::temporarySignedRoute('send.whatsapp', now()->addMinutes(15), ['id' => $user->id,'rol_id' => $user->rol_id,'phone_number' => $user->phone_number,'last_name'=>$user->last_name ]);
 
+                 SendEmail::dispatch($user,$url)->delay(now()->addSeconds(10))->onQueue('emails')->onConnection('database');
+                
                  
-                 Auth::login($user);
-                 return redirect('/email');
+                 #Auth::login($user);
+                 session(['user_id' => $user->id]);
+                 return redirect('/information');
     
                 }
+                
+                //si es usuario 2(guest) solo contraseña y entra al inicio
                 else
                 {
                     Auth::login($user);
@@ -180,45 +181,49 @@ class UserController extends Controller
 
     }
 
-
-    public function sendSMS(Request $request)
+    public function sendWhatssApp(Request $request)
     {
+        //verificar que la ruta este firmada
+        if(!$request->hasValidSignature())
+           {
+            Log::error('Error al firmar la ruta');
+            abort(401);
+        }
+        else
+        {
+           $user = User::find($request->id);
 
-        $user = User::find($request->id);
-        $sid = env('TWILIO_ACCOUNT_SID');
-        $token = env('TWILIO_AUTH_TOKEN');
-       # $user->email_verified_at = now();
+            //crear de twilio
+            $sid = env('TWILIO_ACCOUNT_SID');
+            $token = env('TWILIO_AUTH_TOKEN');
 
-        $response = Http::asForm()->withBasicAuth($sid,$token)->post('https://api.twilio.com/2010-04-01/Accounts/'.$sid.'/Messages.json',[
-        //'To' => 'whatsapp:+521'.$user->phone_number,
-        'To' => 'whatsapp:+5218718458147',
-        'From' => 'whatsapp:+'.env('TWILIO_FROM_NUMBER'),
-        'Body' => 'Hola '.$user->name.' '.$user->last_name.' tu codigo de verificacion es:'.$user->code.'',
-        
-    ]);
+            //enviar mensaje
+            $response = Http::asForm()->withBasicAuth($sid,$token)->post('https://api.twilio.com/2010-04-01/Accounts/'.$sid.'/Messages.json',[
+            //'To' => 'whatsapp:+521'.$user->phone_number,
+            'To' => 'whatsapp:+5218718458147',
+            'From' => 'whatsapp:+'.env('TWILIO_FROM_NUMBER'),
+            'Body' => 'Hola '.$user->name.' '.$user->last_name.' tu codigo de verificacion es:'.$user->code.'',
+            ]);   
 
-    if($response->successful())
-    {
-        Log::info('Servicio de twilio consumido correctamente para usuario');
-
-        return response()->json([
-            'message' => 'SMS enviado correctamente',
-            'code' => 200,
-            'data'=> $response->json()
-        ]);
+            if($response->successful())
+            {
+                Log::info('Servicio de twilio consumido correctamente para usuario');
+                //regresar vista de todo bien que vaya a verificar su codigo
+                return redirect()->route('email.view');
+            }
+            else
+            {
+                Log::error('Servicio de twilio fallando');
+                return response()->json([
+                    'message' => 'Error al enviar el SMS',
+                    'error' => $response->json(),
+                    'code' => 400,
+                ]);
+            }
+        }
     }
-    else
-    {
-        Log::error('Servicio de twilio fallando');
-        return response()->json([
-            'message' => 'Error al enviar el SMS',
-            'error' => $response->json(),
-            'code' => 400,
-        ]);
-    }
-    }
 
-    public function verifySMS(Request $request)
+    public function verifyCode(Request $request)
     {
        try
        {
@@ -234,7 +239,9 @@ class UserController extends Controller
         ]);
         if($validator->fails())
         {
-            return view('/auth/email',compact('user'),['errors' => $validator->errors()]);   
+            return redirect()->route('email.view')
+                        ->withErrors($validator)
+                        ->withInput();  
         }
         
         if($user->code == $request->code)
@@ -250,7 +257,9 @@ class UserController extends Controller
         else
         {
             $validator->errors()->add('code', 'El codigo es incorrecto');
-            return view('/auth/email',compact('user'),['errors' => $validator->errors()]);
+            return redirect()->route('email.view')
+                        ->withErrors($validator)
+                        ->withInput();
         }
 
        }
@@ -270,19 +279,38 @@ class UserController extends Controller
         return redirect('/');
     }
 
-    public function resendMail(Request $request)
+   public function resendWhatssap(Request $request)
     {
+
         $user = User::find($request->user_id_2);
 
-        
+            //crear de twilio
+            $sid = env('TWILIO_ACCOUNT_SID');
+            $token = env('TWILIO_AUTH_TOKEN');
 
-        $url = URL::temporarySignedRoute(
-            'send.whatsapp', now()->addMinutes(30), ['id' => $user->id]
-        );
-        Mail::to($user->email)->send(new \App\Mail\UserLogin($user,$url));
+            //enviar mensaje
+            $response = Http::asForm()->withBasicAuth($sid,$token)->post('https://api.twilio.com/2010-04-01/Accounts/'.$sid.'/Messages.json',[
+            //'To' => 'whatsapp:+521'.$user->phone_number,
+            'To' => 'whatsapp:+5218718458147',
+            'From' => 'whatsapp:+'.env('TWILIO_FROM_NUMBER'),
+            'Body' => 'Hola '.$user->name.' '.$user->last_name.' tu codigo de verificacion es:'.$user->code.'',
+            ]);   
 
-        
-        return redirect('/email');
+            if($response->successful())
+            {
+                Log::info('Servicio de twilio consumido correctamente para usuario');
+                //regresar vista de todo bien que vaya a verificar su codigo
+                return redirect()->route('email.view');
+            }
+            else
+            {
+                Log::error('Servicio de twilio fallando');
+                return response()->json([
+                    'message' => 'Error al enviar el SMS',
+                    'error' => $response->json(),
+                    'code' => 400,
+                ]);
+            }
         
 
     }

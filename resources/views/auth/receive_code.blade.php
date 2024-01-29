@@ -1,6 +1,5 @@
 @vite('resources/css/app.css')
-@php
-@endphp
+
 <div class="h-screen bg-gray-900 flex justify-center">
     <div class="h-5/6 w-96 border-2 border-red-500 mt-10 flex flex-col rounded-md items-center bg-gray-700">
         <div class="max-h">
@@ -17,9 +16,9 @@
             @endif
        </div>
        <div class="mt-10 p-2">
-        <p class="text-l text-center text-white font-mono">Hemos enviado un codigo de verificacion para validar tu telefono,ve a whatssApp para verlo.</p>  
-      </div>
-    
+        <p class="text-l text-center text-white font-mono">Hemos enviado un codigo a tu numero de whatssApp</p>  
+    </div>
+           
          <div class="mt-5">
             <form method="POST" action="{{route('verify.whatssApp')}}">            
                 @csrf
@@ -36,44 +35,8 @@
                 <input type="hidden" name="user_id" value="{{$user->id}}">
             </form>  
          </div>
-         <div class="mt-2 p-2 text-center">
-            <form  method="POST" action="{{route('resend.whatsapp')}}" >
-                @csrf
-                <span class="text-white font-mono text-center">No recibiste el codigo?</span>
-                <br>
-                <span class="text-white font-mono text-center" id="tiempo"></span> 
-                <input type="hidden" name="user_id_2" value="{{$user->id}}">
-                <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded " type="submit" id="miBoton" disabled>Volver a enviar</button> 
-            </form>
-         </div>
+
+      
+            
+        
 </div>
-<script>
-
-document.addEventListener('DOMContentLoaded', function() {
-
-let boton = document.getElementById('miBoton');
-let tiempo = document.getElementById('tiempo');
-
-let contador = 10;
-
-let intervalo = setInterval(function() {
-    if (contador == 0) {
-        boton.disabled = false;
-        boton.classList.remove('bg-gray-900');
-        boton.innerText = 'Volver a enviar';
-        tiempo.innerText = '';
-        contador = 10;
-        clearInterval(intervalo);
-    } else {
-        boton.disabled = true;
-        boton.classList.add('bg-gray-900');
-
-
-        tiempo.innerText = 'Espera ' + contador + ' segundos para volver a enviar';
-        contador--;
-    }
-}, 1000);
-
-
-});
-</script>

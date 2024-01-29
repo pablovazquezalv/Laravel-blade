@@ -26,12 +26,28 @@ class ViewController extends Controller
 
     public function emailVerifiedView()
     {
+        $userId = session('user_id');
+        
+        $user = User::find($userId);
 
-        return view('/auth/email');
+        return view('/auth/email', compact('user'));
     }
 
     public function welcomeView()
     {
         return view('/welcome');
+    }
+
+    public function informationView()
+    {
+        return view('/auth/information');
+    }
+
+    public function receiveView($id)
+    {
+        $userId = session('user_id');
+        $user = User::find($id);
+        
+        return view('/auth/receive_code', compact('user'));
     }
 }
