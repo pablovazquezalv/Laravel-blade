@@ -23,7 +23,7 @@ Route::get('/register',[ViewController::class,"registerView"])->name('register.v
 Route::get('/login',[ViewController::class,'loginView'])->name('login.view')->middleware('guest');
 Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('auth');
 Route::get('/email',[ViewController::class,'emailVerifiedView'])->name('email.view')->middleware('first.user:admin')->middleware('guest');
-Route::get('/information',[ViewController::class,'informationView'])->name('information.view')->middleware('guest');
+Route::get('/information',[ViewController::class,'informationView'])->name('information.view')->middleware('guest')->middleware('first.user:admin');
 
 //Acciones
 Route::post('/register', [UserController::class, 'register'])->name('register.user');
