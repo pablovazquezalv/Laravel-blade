@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\URL;
 use App\Exceptions\MethodNotAllowed;
 use Illuminate\Support\Facades\Log;
 use App\Jobs\SendEmail;
+use Exception;
 
 class UserController extends Controller
 {
@@ -184,13 +185,13 @@ class UserController extends Controller
     public function sendWhatssApp(Request $request)
     {
         //verificar que la ruta este firmada
-        if(!$request->hasValidSignature())
+       /* if(!$request->hasValidSignature())
            {
             Log::error('Error al firmar la ruta');
-            abort(401);
+            abort(404);
         }
         else
-        {
+        {*/
            $user = User::find($request->id);
 
             //crear de twilio
@@ -219,8 +220,9 @@ class UserController extends Controller
                     'error' => $response->json(),
                     'code' => 400,
                 ]);
-            }
-        }
+          }
+       // }
+
     }
 
     public function verifyCode(Request $request)
@@ -274,16 +276,22 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        return redirect('/');
+        try{
+
+            Auth::logout();
+            $request->session()->invalidate();
+            return redirect('/');    
+        }    
+        catch (Exception $e) {
+            // Manejar la excepción
+            return back()->withError('Hubo un error al cerrar sesión: ' . $e->getMessage());
+        }
     }
 
    public function resendWhatssap(Request $request)
     {
 
-        $user = User::find($request->user_id_2);
-
+            $user = User::find($request->user_id_2);
             //crear de twilio
             $sid = env('TWILIO_ACCOUNT_SID');
             $token = env('TWILIO_AUTH_TOKEN');

@@ -32,7 +32,7 @@ Route::post('/verify',[UserController::class,'verifyCode'])->name('verify.whatss
 Route::get('/logout',[UserController::class,'logout'])->name('logout.user')->middleware('auth');
 //Servicios
 //enviar whatsapp
-Route::get('/sendwhatsapp',[UserController::class,'sendWhatssApp'])->name('send.whatsapp');
+Route::get('/sendwhatsapp',[UserController::class,'sendWhatssApp'])->name('send.whatsapp')->middleware('signed');
 //Reenviar whatsapp
 Route::post('/resendwhatsapp',[UserController::class,'resendWhatssap'])->name('resend.whatsapp');
 
