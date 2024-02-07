@@ -2,6 +2,7 @@
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ViewController;
 
 
@@ -28,12 +29,12 @@ Route::get('/information',[ViewController::class,'informationView'])->name('info
 //Acciones
 Route::post('/register', [UserController::class, 'register'])->name('register.user');
 Route::post('/login', [UserController::class, 'login'])->name('login.user');
-Route::post('/verify',[UserController::class,'verifyCode'])->name('verify.whatssApp');
+Route::post('/verify',[ServiceController::class,'verifyCode'])->name('verify.whatssApp');
 Route::get('/logout',[UserController::class,'logout'])->name('logout.user')->middleware('auth');
 //Servicios
 //enviar whatsapp
-Route::get('/sendwhatsapp',[UserController::class,'sendWhatssApp'])->name('send.whatsapp')->middleware('signed');
+Route::get('/sendwhatsapp',[ServiceController::class,'sendWhatssApp'])->name('send.whatsapp')->middleware('signed');
 //Reenviar whatsapp
-Route::post('/resendwhatsapp',[UserController::class,'resendWhatssap'])->name('resend.whatsapp');
+Route::post('/resendwhatsapp',[ServiceController::class,'resendWhatssap'])->name('resend.whatsapp');
 
 
