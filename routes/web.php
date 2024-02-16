@@ -37,4 +37,7 @@ Route::get('/sendwhatsapp',[ServiceController::class,'sendWhatssApp'])->name('se
 //Reenviar whatsapp
 Route::post('/resendwhatsapp',[ServiceController::class,'resendWhatssap'])->name('resend.whatsapp');
 
+//css
+
+
 

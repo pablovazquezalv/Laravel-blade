@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use App\Exceptions\MethodNotAllowed;
+use Illuminate\Support\Facades\Hash;
 
 class ServiceController extends Controller
 {
@@ -29,12 +30,21 @@ class ServiceController extends Controller
             $sid = env('TWILIO_ACCOUNT_SID');
             $token = env('TWILIO_AUTH_TOKEN');
 
+            //generar codigo
+            $code = rand(1000,9999);
+            $code_send = $code;
+            $phone_code = Hash::make($code);
+
+            $user->code = $phone_code;
+            $user->save();
+
+            
             //enviar mensaje
             $response = Http::asForm()->withBasicAuth($sid,$token)->post('https://api.twilio.com/2010-04-01/Accounts/'.$sid.'/Messages.json',[
             //'To' => 'whatsapp:+521'.$user->phone_number,
             'To' => 'whatsapp:+5218718458147',
             'From' => 'whatsapp:+'.env('TWILIO_FROM_NUMBER'),
-            'Body' => 'Hola '.$user->name.' '.$user->last_name.' tu codigo de verificacion es:'.$user->code.'',
+            'Body' => 'Hola '.$user->name.' '.$user->last_name.' tu codigo de verificacion es:'.$code_send.'',
             ]);   
 
             if($response->successful())
@@ -77,9 +87,9 @@ class ServiceController extends Controller
                         ->withInput();  
         }
         
-        if($user->code == $request->code)
+        if(Hash::check($request->code,$user->code))
         {
-            $user->code = rand(1000,9999);
+            
             $user->save();
 
             //si es autenticado
@@ -113,12 +123,20 @@ class ServiceController extends Controller
             $sid = env('TWILIO_ACCOUNT_SID');
             $token = env('TWILIO_AUTH_TOKEN');
 
+            //generar codigo
+            $code = rand(1000,9999);
+            $code_send = $code;
+
+            $user->code = Hash::make($code);
+            $user->save();
+
+
             //enviar mensaje
             $response = Http::asForm()->withBasicAuth($sid,$token)->post('https://api.twilio.com/2010-04-01/Accounts/'.$sid.'/Messages.json',[
             //'To' => 'whatsapp:+521'.$user->phone_number,
             'To' => 'whatsapp:+5218718458147',
             'From' => 'whatsapp:+'.env('TWILIO_FROM_NUMBER'),
-            'Body' => 'Hola '.$user->name.' '.$user->last_name.' tu codigo de verificacion es:'.$user->code.'',
+            'Body' => 'Hola '.$user->name.' '.$user->last_name.' tu codigo de verificacion es:'.$code_send.'',
             ]);   
 
             if($response->successful())
@@ -139,5 +157,6 @@ class ServiceController extends Controller
         
 
     }
+    
     
 }

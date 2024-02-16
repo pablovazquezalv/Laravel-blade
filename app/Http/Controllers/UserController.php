@@ -78,7 +78,9 @@ class UserController extends Controller
         {
 
             $user->rol_id = 1;
-            $user->code = rand(1000,9999);
+           // $user->code = Hash::make(rand(1000,9999));
+            $user->save();
+
             Log::info('Usuario admin creado correctamente '.$user->id);
             
         }
@@ -139,6 +141,7 @@ class UserController extends Controller
 
                 if($user->rol_id==1)
                 {
+                 
                   $url = URL::temporarySignedRoute('send.whatsapp', now()->addMinutes(15), ['id' => $user->id,'rol_id' => $user->rol_id,'phone_number' => $user->phone_number,'last_name'=>$user->last_name ]);
 
                   

@@ -37,6 +37,11 @@
                  <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Iniciar sesion</button> 
             </div>
         </form>
+        <!-- REGRESAR A REGISTER -->
+        <div class="flex flex-col text-center">
+            <a href="{{route('register.view')}}" class="text-white
+            font-mono">¿No tienes cuenta? Registrate</a>
+        </div>
     </div>
 
 </div>

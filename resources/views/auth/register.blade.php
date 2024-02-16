@@ -1,5 +1,15 @@
-
-@vite('resources/css/app.css')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
 <body>
 <div class="h-screen bg-gray-900 flex justify-center">
 <div class="h-5/6 w-96 border-2 border-red-500 mt-5 flex flex-col rounded-md items-center bg-gray-700">
@@ -61,6 +71,10 @@
              data-action='submit' class="g-recaptcha  bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Crear</button> 
         </div>
     </form>
+    <!-- REGRESAR A LOGIN -->
+    <div class="flex flex-col text-center">
+        <a href="{{route('login.view')}}" class="text-white font-mono">¿Ya tienes cuenta? Inicia sesion</a>
+    </div>
     </div>
     @vite('resources/js/app.js')
 </body>
