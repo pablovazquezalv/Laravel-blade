@@ -1,3 +1,4 @@
+<!---hola--->
 @vite('resources/css/app.css')
 <div class="h-screen bg-gray-900 flex justify-center">
 <div class="mt-10">
