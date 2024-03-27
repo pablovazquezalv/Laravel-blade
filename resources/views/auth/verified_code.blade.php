@@ -13,10 +13,10 @@
             <h2 class="text-xl text-white font-mono">Bienvenido  {{$user->name}} {{$user->last_name}}</h2>
             @else
             <h2 class="text-xl text-white font-mono">Bienvenido</h2>
-            @endif
+            @endif 
        </div>
        <div class="mt-10 p-2">
-        <p class="text-l text-center text-white font-mono">Hemos enviado un codigo a tu numero de whatssApp</p>  
+        <p class="text-l text-center text-white font-mono">Ingresa el codigo de verificacion, que hemos enviamos a tu whatssApp</p>  
     </div>
            
          <div class="mt-5">
@@ -32,8 +32,16 @@
                 <div class="flex flex-col mt-6">
                      <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Confirmar</button> 
                 </div>
-                <input type="hidden" name="user_id" value="{{$user->id}}">
+                
+                <input type="hidden" name="user_id" value="{{$user->id}}">                 
             </form>  
+             <div class="flex flex-col mt-6">
+                <form action="" method="POST">
+                    @csrf
+                <p class="text-white">¿No recibiste el codigo?</p>
+                <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Confirmar</button> 
+            </form>
+            </div> 
          </div>
 
       

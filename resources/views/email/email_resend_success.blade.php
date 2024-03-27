@@ -4,17 +4,17 @@
 <div class="h-5/6 w-96 border-2 border-red-500 mt-10 flex flex-col rounded-md items-center bg-gray-700">
 
     <div class="mt-2">
-        <h1 class=" text-3xl font-sans font-bold text-white">Verifica tu correo</h1>
+        <h1 class=" text-3xl font-sans font-bold text-white">Se ha vuelto a enviar el correo</h1>
     </div>
     <div class="mt-6">
         @if(isset($user))
-        <h2 class="text-xl text-white font-mono">Bienvenido  {{$user->name}} {{$user->last_name}}</h2>
+        <h2 class="text-xl text-white font-mono">Hola! {{$user->name}} {{$user->last_name}}</h2>
         @else
         <h2 class="text-xl text-white font-mono">Bienvenido</h2>
         @endif 
    </div>
     <div class="mt-10 p-2">
-        <p class="text-l text-center text-white font-mono">Hemos enviado un correo a la dirreccion que ingresaste, para validarlo, con unas instrucciones que debes de seguir para poder ingresar.</p>  
+        <p class="text-l text-center text-white font-mono">Volvimos a enviar un correo a la dirección que ingresaste, para validarlo, con unas instrucciones que debes de seguir para poder ingresar.</p>  
     </div>
     <div class="mt-10 p-2">
         <p class="text-l text-center text-white font-mono">Por favor revisa tu bandeja de entrada o la carpeta de spam.</p>  
@@ -33,4 +33,3 @@
    </form>
 </div>
 </div>
-
