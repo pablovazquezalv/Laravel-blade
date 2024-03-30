@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Ticket;
+use Illuminate\Support\Facades\DB;
 
 class ViewController extends Controller
 {
@@ -27,7 +29,12 @@ class ViewController extends Controller
     //Visualizacion de la vista de bienvenida
     public function welcomeView()
     {
-        return view('/welcome');
+        $tickets =  DB::table('tickets')
+        ->join('users', 'tickets.user_id', '=', 'users.id')
+        ->select('tickets.id','tickets.title', 'tickets.description', 'tickets.priority', 'users.name', 'users.last_name', 'tickets.status', 'tickets.created_at')
+        ->get();
+    
+        return view('welcome', ['tickets' => $tickets]);
     }
 
     //Visualizacion de la vista de informacion
@@ -65,19 +72,24 @@ class ViewController extends Controller
         return view('/auth/verified_code', compact('user'));
     }
 
-   
+    public function TicketCreateView()
+    {
+        return view('/ticket/create');
+    }
+
+    public function TicketEditView(Request $request)
+    {
+        $ticket = Ticket::find($request->id);
+        return view('/ticket/edit', compact('ticket'));
+    }
+
+
+    public function UserEditView()
+    {
+        $users = User::all();
+        return view('/user/users', compact('users'));
+    }
     
-
-    // public function emailVerifiedView()
-    // {
-    //     $userId = session('user_id');
-        
-    //     $user = User::find($userId);
-
-    //     return view('/auth/email', compact('user'));
-    // }
-
-   
 
     public function receiveView($id)
     {

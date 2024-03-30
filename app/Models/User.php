@@ -18,12 +18,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'last_name',
         'email',
         'phone_number',
         'code', 
-        'is_verified',
+        'status',
         'password',
         'rol_id',
     ];
@@ -47,4 +48,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function hasRole(int $role): bool
+    {
+        return $this->rol_id === $role;
+    }
+
+    public function isStatus(int $status): bool
+    {
+        return $this->status === $status;
+    }
 }

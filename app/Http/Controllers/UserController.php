@@ -104,6 +104,142 @@ class UserController extends Controller
        
     }
 
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(),
+         [
+            'email' => 'required|max:50|email',
+            'password' => 'required|max:50|min:6',
+        ],[
+            'email.required' => 'El campo correo es requerido',
+            'email.max' => 'El campo correo no debe ser mayor a 50 caracteres',
+            'email.email' => 'El campo correo debe ser de tipo email',
+            
+            'password.required' => 'El campo contraseña es requerido',
+            'password.max' => 'El campo contraseña no debe ser mayor a 50 caracteres',
+            'password.min' => 'El campo contraseña no debe ser menor a 6 caracteres',
+        ]);
+
+        if ($validator->fails()) 
+        {
+            return redirect()->route('login.view')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $user = User::where('email',$request->email)->first();
+
+        if($user)
+        {
+            if(Hash::check($request->password,$user->password))
+            {  
+                //si es usuario 1 (admin) le pone contraseña (1), y correo de validacion .. (2)
+
+                    Auth::login($user);
+                    
+                    Log::info('Usuario normal sesion iniciada correctamente '.$user->id);
+                    return redirect('/welcome');
+                
+
+            }
+            else
+            {
+                Log::error('Usuario no autenticado '.$user->id);
+                $validator->errors()->add('password', 'Creedenciales incorrectas');
+                return redirect('/login')
+                        ->withErrors($validator)
+                        ->withInput();
+            }
+        }
+        else
+        {
+            Log::error('Error usuario no existente');
+
+            $validator->errors()->add('email', 'Creedenciales incorrectas');
+            return redirect('/login')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+    }
+
+   public function changeRol(Request $request)
+    {
+
+        $user = User::find($request->user_id);
+
+        
+
+        if($user)
+        {
+            $user->rol_id = $request->rol_id;
+            $user->save();
+
+            if($user->save())
+            {
+                
+            return redirect('/users')->with('success', 'Ticket creado con exito');
+            }
+            else
+            {
+                return response()->json(['error' => 'Error al cambiar rol'],404);
+            }
+
+        }
+        else
+        {
+            return response()->json(['error' => 'Usuario no encontrado'],404);
+        }
+       
+
+    }
+
+    public function changeStatus($id)
+    {
+        $user = User::find($id);
+
+        if($user)
+        {
+            if($user->status == 1)
+            {
+                $user->status = 0;
+            }
+            else
+            {
+                $user->status = 1;
+            }
+            
+            if($user->save())
+            {
+                return redirect('/users')->with('success', 'Ticket creado con exito');
+            }
+            else
+            {
+                return response()->json(['error' => 'Error al cambiar status'],404);
+            }
+
+        }
+        else
+        {
+            return response()->json(['error' => 'Usuario no encontrado'],404);
+        }
+    }
+
+
+    public function logout(Request $request)
+    {
+        try{
+
+            Auth::logout();
+            $request->session()->invalidate();
+            return redirect('/');    
+        }    
+        catch (Exception $e) {
+            // Manejar la excepción
+            return back()->withError('Hubo un error al cerrar sesión: ' . $e->getMessage());
+        }
+    }
+
     // public function register(Request $request)
     // {   
        
@@ -190,64 +326,6 @@ class UserController extends Controller
     //     }
        
     // }
-    public function login(Request $request)
-    {
-        $validator = Validator::make($request->all(),
-         [
-            'email' => 'required|max:50|email',
-            'password' => 'required|max:50|min:6',
-        ],[
-            'email.required' => 'El campo correo es requerido',
-            'email.max' => 'El campo correo no debe ser mayor a 50 caracteres',
-            'email.email' => 'El campo correo debe ser de tipo email',
-            
-            'password.required' => 'El campo contraseña es requerido',
-            'password.max' => 'El campo contraseña no debe ser mayor a 50 caracteres',
-            'password.min' => 'El campo contraseña no debe ser menor a 6 caracteres',
-        ]);
-
-        if ($validator->fails()) 
-        {
-            return redirect()->route('login.view')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-
-        $user = User::where('email',$request->email)->first();
-
-        if($user)
-        {
-            if(Hash::check($request->password,$user->password))
-            {  
-                //si es usuario 1 (admin) le pone contraseña (1), y correo de validacion .. (2)
-
-                    Auth::login($user);
-                    
-                    Log::info('Usuario normal sesion iniciada correctamente '.$user->id);
-                    return redirect('/welcome');
-                
-
-            }
-            else
-            {
-                Log::error('Usuario no autenticado '.$user->id);
-                $validator->errors()->add('password', 'Creedenciales incorrectas');
-                return redirect('/login')
-                        ->withErrors($validator)
-                        ->withInput();
-            }
-        }
-        else
-        {
-            Log::error('Error usuario no existente');
-
-            $validator->errors()->add('email', 'Creedenciales incorrectas');
-            return redirect('/login')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-
-    }
 
     // public function login(Request $request)
     // {
@@ -326,22 +404,4 @@ class UserController extends Controller
     //     }
 
     // }
-
-   
-
-    public function logout(Request $request)
-    {
-        try{
-
-            Auth::logout();
-            $request->session()->invalidate();
-            return redirect('/');    
-        }    
-        catch (Exception $e) {
-            // Manejar la excepción
-            return back()->withError('Hubo un error al cerrar sesión: ' . $e->getMessage());
-        }
-    }
-
-   
 }

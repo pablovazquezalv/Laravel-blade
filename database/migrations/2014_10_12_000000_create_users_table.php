@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email',50)->unique();
             $table->string('phone_number',10);
             $table->string('password');
-            $table->boolean('is_verified')->default(false);
+            $table->boolean('status')->default(false);
             $table->string('code',300)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->foreignId('rol_id')->nullable()->constrained('roles')->onDelete('cascade')->onUpdate('cascade');

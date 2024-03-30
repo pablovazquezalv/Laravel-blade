@@ -36,7 +36,7 @@
                 <input type="hidden" name="user_id" value="{{$user->id}}">                 
             </form>  
              <div class="flex flex-col mt-6">
-                <form action="" method="POST">
+                <form action="{{url('resend.whatsapp')}}" method="POST">
                     @csrf
                 <p class="text-white">¿No recibiste el codigo?</p>
                 <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Confirmar</button> 

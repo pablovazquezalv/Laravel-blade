@@ -13,6 +13,7 @@ class RolSeeder extends Seeder
      */
     public function run(): void
     {
+        
         DB::table('roles')->insert([
             'name' => 'admin',
         ]);
@@ -24,5 +25,7 @@ class RolSeeder extends Seeder
         DB::table('roles')->insert([
             'name' => 'guest',
         ]);
+
+       
     }
 }

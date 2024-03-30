@@ -43,14 +43,6 @@ class ServiceController extends Controller
 
     public function sendWhatssApp(Request $request)
     {
-        //verificar que la ruta este firmada // codigo comentando
-       /* if(!$request->hasValidSignature())
-           {
-            Log::error('Error al firmar la ruta');
-            abort(404);
-        }
-        else
-        {*/
            $user = User::find($request->id);
 
             //crear de twilio
@@ -67,6 +59,11 @@ class ServiceController extends Controller
             'From' => 'whatsapp:+'.env('TWILIO_FROM_NUMBER'),
             'Body' => 'Hola '.$user->name.' '.$user->last_name.' tu codigo de verificacion es:'.$codigoDescifrado.'',
             ]);   
+            //update email_verified_at
+            $user->email_verified_at = now();
+
+            $user->save();
+
 
             if($response->successful())
             {
