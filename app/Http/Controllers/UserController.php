@@ -133,7 +133,6 @@ class UserController extends Controller
         {
             if(Hash::check($request->password,$user->password))
             {  
-                //si es usuario 1 (admin) le pone contraseña (1), y correo de validacion .. (2)
 
                     Auth::login($user);
                     
@@ -208,7 +207,7 @@ class UserController extends Controller
             {
                 $user->status = 1;
             }
-            
+
             if($user->save())
             {
                 return redirect('/users')->with('success', 'Ticket creado con exito');
