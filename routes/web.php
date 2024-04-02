@@ -29,13 +29,13 @@ Route::get('/logout',[UserController::class,'logout'])->name('logout.user')->mid
 
 
 //USUARIOS
-Route::middleware(['roles.create:1','auth','status.user'])->group(function () {
+Route::middleware(['roles.create:1','auth'])->group(function () {
     Route::get('/users', [ViewController::class, 'UserEditView'])->name('users.view');
     Route::post('/changeRol', [UserController::class, 'changeRol'])->name('change.rol')->where('id', '[0-9]+');
     Route::post('/changeStatus/{id}', [UserController::class, 'changeStatus'])->name('change.status')->where('id', '[0-9]+');
 });
 //TICKETS
-Route::middleware(['roles.create:1,2','auth','status.user'])->group(function () {
+Route::middleware(['roles.create:1,2','auth'])->group(function () {
     Route::get('/tickets', [ViewController::class, 'TicketCreateView'])->name('tickets.create.view');
     Route::post('/tickets', [TicketController::class, 'createTicket'])->name('tickets.create');
     Route::get('/ticket/{id}', [ViewController::class, 'TicketEditView'])->name('tickets.edit.view')->where('id', '[0-9]+');
