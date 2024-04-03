@@ -16,7 +16,7 @@ class StatusUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->isStatus("1")) {
+        if ($request->user()->statusActive()) {
             return $next($request);
         }
 
