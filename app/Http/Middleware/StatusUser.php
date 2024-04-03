@@ -18,10 +18,7 @@ class StatusUser
         if ($request->user()->isStatus(1)) {
           return $next($request);
         }
-//        return redirect()->route('login.view');
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+//       //no esta activa su cuenta mandarlo al login
+        return redirect()->route('login.view');
     }
 }
