@@ -20,10 +20,6 @@ class StatusUser
             return $next($request);
         }
 
-        $request->session()->invalidate();
-        //aqui se regenera el token
-        $request->session()->regenerateToken();
-        //aqui se redirige a la vista de login
-        return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+        return redirect('/')->with('error', 'Usuario inactivo');
     }
 }
