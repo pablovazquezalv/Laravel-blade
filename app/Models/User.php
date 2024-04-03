@@ -58,4 +58,6 @@ class User extends Authenticatable
     {
         return $this->status === 1;
     }
+
+    
 }
