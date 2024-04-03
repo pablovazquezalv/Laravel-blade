@@ -16,13 +16,14 @@ class StatusUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->isStatus(1)) {
+        if ($request->user()->isStatus("1")) {
             return $next($request);
         }
 
-        abort(403);
-//        return redirect()->route('login.view');
-        //aqui se cierra la sesion
-       
-           }
+        $request->session()->invalidate();
+        //aqui se regenera el token
+        $request->session()->regenerateToken();
+        //aqui se redirige a la vista de login
+        return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+    }
 }
