@@ -22,9 +22,13 @@ class DomainAccess
             {
                 return $next($request);
             }
-            return response('Unauthorized 2.', 401);
+            $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
         }
-        return response('Unauthorizedd.', 401);
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
 
         
     }

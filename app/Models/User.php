@@ -56,6 +56,10 @@ class User extends Authenticatable
 
     public function statusActive(): bool
     {
+        //si es bd mysql es 1
+        #return $this->status === 1;
+
+        //si es postgresql es true
         return $this->status === true;
     }
 

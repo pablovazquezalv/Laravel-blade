@@ -98,4 +98,9 @@ class ViewController extends Controller
         
         return view('/auth/receive_code', compact('user'));
     }
+
+    public function loginCodeVerifiedView()
+    {
+        return view('/auth/login_code_verified');
+    }
 }
