@@ -19,7 +19,7 @@ class StatusUser
         if ($request->user()->statusActive()) {
             return $next($request);
         }
-
+        $request->user()->logout();
         return redirect('/')->with('error', 'Usuario inactivo');
     }
 }
