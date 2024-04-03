@@ -21,7 +21,7 @@ class DomainAccess
             if($request->getHost() == 'danielypablo.tech'){
                 return $next($request);
             }
-            return response('Unauthorized.', 401);
+            return response('Unauthorized 2.', 401);
         }
         return response('Unauthorized.', 401);
 
