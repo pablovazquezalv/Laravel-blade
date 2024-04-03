@@ -70,5 +70,6 @@ class Kernel extends HttpKernel
         'first.user' => \App\Http\Middleware\FirstUser::class,
         'roles.create' => \App\Http\Middleware\RolesCreate::class,
         'status.user' => \App\Http\Middleware\StatusUser::class,
+        'loginip.guest' => \App\Http\Middleware\DomainAccess::class,
     ];
 }
