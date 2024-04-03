@@ -23,6 +23,6 @@ class StatusUser
         abort(403);
 //        return redirect()->route('login.view');
         //aqui se cierra la sesion
-        
+       
            }
 }
