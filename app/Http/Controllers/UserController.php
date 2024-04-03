@@ -133,7 +133,8 @@ class UserController extends Controller
         {
             if(Hash::check($request->password,$user->password))
             {  
-                
+
+                //mandar correo con codigo de validacion
                     Auth::login($user);
                     
                     Log::info('Usuario normal sesion iniciada correctamente '.$user->id);
@@ -161,6 +162,8 @@ class UserController extends Controller
         }
 
     }
+
+    
 
    public function changeRol(Request $request)
     {
