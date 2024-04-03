@@ -6,8 +6,6 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-
-
 class StatusUser
 {
     /**
@@ -18,9 +16,12 @@ class StatusUser
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->user()->statusActive()) {
-            return $next($request);
+          return $next($request);
         }
-        
-        abort(403, 'No tienes permisos para acceder a esta página');
+//        return redirect()->route('login.view');
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
     }
 }
