@@ -56,7 +56,7 @@ class User extends Authenticatable
 
     public function statusActive(): bool
     {
-        return $this->status === 1;
+        return $this->status === true;
     }
 
     
