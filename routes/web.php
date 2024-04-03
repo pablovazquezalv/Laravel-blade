@@ -24,7 +24,7 @@ Route::middleware(['guest'])->group(function () {
 
 
 
-Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('auth')->middleware('status.user');#->middleware('loginip.guest:3');//pagina inicio 
+Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('auth')->middleware('status.user')->middleware('loginip.guest:3');//pagina inicio 
 Route::get('/logout',[UserController::class,'logout'])->name('logout.user')->middleware('auth');
 
 
