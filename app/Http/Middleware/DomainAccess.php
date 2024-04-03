@@ -18,7 +18,8 @@ class DomainAccess
         if ($request->user()->hasRole($role)) 
         {
             
-            if($request->getHost() == 'danielypablo.tech'){
+            if($request->getHost() == 'danielypablo.tech')
+            {
                 return $next($request);
             }
             return response('Unauthorized 2.', 401);
