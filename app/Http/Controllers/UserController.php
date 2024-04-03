@@ -133,7 +133,7 @@ class UserController extends Controller
         {
             if(Hash::check($request->password,$user->password))
             {  
-
+                
                     Auth::login($user);
                     
                     Log::info('Usuario normal sesion iniciada correctamente '.$user->id);

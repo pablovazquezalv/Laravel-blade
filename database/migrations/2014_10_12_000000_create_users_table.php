@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('status')->default(false);
             $table->string('code',300)->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->foreignId('rol_id')->nullable()->constrained('roles')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('rol_id')->nullable()->constrained('roles')->onDelete('cascade')->onUpdate('cascade')->default(3);
             $table->rememberToken();
             $table->timestamps();
         });
