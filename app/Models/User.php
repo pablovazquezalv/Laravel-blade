@@ -54,7 +54,7 @@ class User extends Authenticatable
         return $this->rol_id === $role;
     }
 
-    public function isStatus(int $status): bool
+    public function isStatus($status): bool
     {
         return $this->status === $status;
     }
