@@ -32,13 +32,18 @@
                 <div class="flex flex-col mt-6">
                      <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Confirmar</button> 
                 </div>
-                
-                <input type="hidden" name="user_id" value="{{$user->id}}">                 
+                @if(isset($user))
+                <input type="hidden" name="user_id" value="{{$user->id}}">     
+                @endif            
             </form>  
+            <!-- Reenviar codigo-->
              <div class="flex flex-col mt-6">
-                <form action="{{url('resend.whatsapp')}}" method="POST">
+                <form action="{{route('resend.whatsapp')}}" method="POST">
                     @csrf
                 <p class="text-white">¿No recibiste el codigo?</p>
+                @if(isset($user))
+                <input type="hidden" name="user_id" value="{{$user->id}}">
+                @endif
                 <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Confirmar</button> 
             </form>
             </div> 

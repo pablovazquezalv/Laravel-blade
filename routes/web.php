@@ -26,7 +26,8 @@ Route::middleware(['guest'])->group(function () {
 
 
 Route::get('/logincode',[ViewController::class,'loginCodeVerifiedView'])->name('login.code.view');#->middleware('loginip.guest:1');//vista de que se le envio un correo
-Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('auth')->middleware('status.user')->middleware('loginip.guest:1');//solo en produccion pagina inicio 
+Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');//funcion login
+Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('auth')->middleware('status.user');#->middleware('loginip.guest:1');//solo en produccion pagina inicio 
 Route::get('/logout',[UserController::class,'logout'])->name('logout.user')->middleware('auth');
 
 

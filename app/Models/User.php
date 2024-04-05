@@ -24,7 +24,10 @@ class User extends Authenticatable
         'email',
         'phone_number',
         'code', 
+        
+        'email_verified_at',
         'status',
+        'is_active',
         'password',
         'rol_id',
     ];
@@ -46,6 +49,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+
         'password' => 'hashed',
     ];
 
@@ -57,10 +61,15 @@ class User extends Authenticatable
     public function statusActive(): bool
     {
         //si es bd mysql es 1
-        #return $this->status === 1;
+       // return $this->status === 1;
 
         //si es postgresql es true
         return $this->status === true;
+    }
+
+    public function nullValue(): ?string
+    {
+        return null;
     }
 
     

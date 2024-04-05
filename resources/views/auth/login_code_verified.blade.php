@@ -1,18 +1,19 @@
 @vite('resources/css/app.css')
-
+<!-- vista para loguear con codigo de verificacion -->
 <div class="h-screen bg-gray-900 flex justify-center">
     <div class="h-5/6 w-96 border-2 border-red-500 mt-10 flex flex-col rounded-md items-center bg-gray-700">
         <div class="max-h">
             <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Laravel.svg" class="mt-10 w-12">
         </div>
         <div class="mt-2">
-            <h1 class=" text-2xl font-sans font-bold text-white text-center">Ingresa el codigo que te enviamos para poder iniciar</h1>
+            <h1 class=" text-3xl font-sans font-bold text-white text-center">Iniciar sesion</h1>
+            <h3 class=" text-xl font-sans font-bold text-white text-center">Ingresa el codigo que te enviamos para poder iniciar sesion</h1>
         </div>
         <div class="mt-6">
             @if(isset($user))
-            <h2 class="text-xl text-white font-mono">Bienvenido  {{$user->name}} {{$user->last_name}}</h2>
+            <h2 class="text-xl text-white font-mono">Hola!  {{$user->name}} {{$user->last_name}}</h2>
             @else
-            <h2 class="text-xl text-white font-mono">Bienvenido</h2>
+            <h2 class="text-xl text-white font-mono">Bienvenido </h2>
             @endif 
        </div>
        <div class="mt-10 p-2">
@@ -20,7 +21,7 @@
     </div>
            
          <div class="mt-5">
-            <form method="POST" action="{{route('verify.whatssApp')}}">            
+            <form method="POST" action="{{route('login.code')}}">            
                 @csrf
                 <div class="flex flex-col">
                     <label for="code" class="text-white font-mono">Codigo de confirmacion:</label>
@@ -29,18 +30,20 @@
                     <span class="text-red-500 text-xs font-bold">{{$message}}</span>
                       @endforeach
                 </div>
+
+                <input type="hidden" name="user_id" value="{{$user->id}}">
                 <div class="flex flex-col mt-6">
                      <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Confirmar</button> 
                 </div>
                                 
             </form>  
-             <div class="flex flex-col mt-6">
+             {{-- <div class="flex flex-col mt-6">
                 <form action="{{url('resend.whatsapp')}}" method="POST">
                     @csrf
                 <p class="text-white">¿No recibiste el codigo?</p>
                 <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Confirmar</button> 
             </form>
-            </div> 
+            </div>  --}}
          </div>
 
       

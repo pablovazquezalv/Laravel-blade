@@ -29,7 +29,10 @@
     <div class="mt-5">
         <button type="submit" class="bg-red-500 text-white p-2 rounded-md">Reenviar correo</button>
     </div>
+    @if(isset($user))
     <input type="hidden" name="id" value="{{$user->id}}">
+    @endif
+    
    </form>
 </div>
 </div>

@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Crypt;
+
 class UserSeeder extends Seeder
 {
     /**
@@ -19,8 +21,9 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'admin',
             'last_name' => 'laravel',
-            'email' => 'adminlaravel@gmail.com',
+            'email' => 'anderpiter07@gmail.com',
             'phone_number' => '1234567890',
+            'code' =>  Crypt::encryptString('1010'),
             'password' => bcrypt('123456789'),
             'rol_id' => 1,
             'status' => true,
@@ -33,6 +36,7 @@ class UserSeeder extends Seeder
             'last_name' => 'laravel',
             'email' => 'coordinatorlaravel@gmail.com',
             'phone_number' => '1234567890',
+            'code' =>  Crypt::encryptString('1010'),
             'password' => bcrypt('123456789'),
             'rol_id' => 2,
             'status' => true,
@@ -42,9 +46,10 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'guest',
             'last_name' => 'laravel',
-            'email' => 'guestlaravel@gmail.com',
+            'email' => 'jesusdanielgascaalvarado@gmail.com',
             'phone_number' => '1234567890',
             'password' => bcrypt('123456789'),
+            'code' =>  Crypt::encryptString('1010'),
             'rol_id' => 3,
             'status' => true,
         ]);

@@ -65,7 +65,7 @@ class ViewController extends Controller
     }
 
     //Visualizacion de la vista de codigo verificado enviar
-    public function verifiedCodeView()
+    public function verifiedCodeView(Request $request)
     {
         $userId = session('user_id');
         $user = User::find($userId);
@@ -101,6 +101,9 @@ class ViewController extends Controller
 
     public function loginCodeVerifiedView()
     {
-        return view('/auth/login_code_verified');
+        $userId = session('user_id');
+        $user = User::find($userId);
+        return view('/auth/login_code_verified', compact('user'));
+       // return view('/auth/login_code_verified');
     }
 }

@@ -67,9 +67,15 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'has.token' => \App\Http\Middleware\HasToken::class,
-        'first.user' => \App\Http\Middleware\FirstUser::class,
-        'roles.create' => \App\Http\Middleware\RolesCreate::class,
+       // 'first.user' => \App\Http\Middleware\FirstUser::class,
+        
+       //middleware para ver si el rol es que le mandamos
+       'roles.create' => \App\Http\Middleware\RolesCreate::class,
+       //middleware para ver si el status es activo (1)
         'status.user' => \App\Http\Middleware\StatusUser::class,
+        //middleware para ver si el dominio es el correcto
         'loginip.guest' => \App\Http\Middleware\DomainAccess::class,
+        //middleware para validad si tiene el correo verificado
+        'verified.email' => \App\Http\Middleware\EmailVerified::class,
     ];
 }
