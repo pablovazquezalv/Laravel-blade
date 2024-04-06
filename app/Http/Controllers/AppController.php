@@ -111,14 +111,8 @@ class AppController extends Controller
                 ];
             });
 
-            if($codes)
-            {
-                return response()->json(['codes' => $codes],200);
-            }
-            else
-            {
-                return response()->json(['error' => 'No hay codigos de acceso'],404);
-            }
+            return response()->json($codes,200,['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+       
        
         }
 
@@ -148,13 +142,8 @@ class AppController extends Controller
                 // Insertar los códigos en la base de datos en una sola operación
                 CodeAccess::insert($codes);
             }
-
-
-            
             $allCodes = CodeAccess::all();
             return response()->json(['success' => 'Tabla llenada con éxito', 'codes' => $allCodes], 200);
-       
-       
         }
 
         public function logout(Request $request)
