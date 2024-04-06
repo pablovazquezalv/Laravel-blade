@@ -75,7 +75,7 @@ class User extends Authenticatable
         //return $this->access_app === 1;
 
         //si es postgresql es true
-        return $this->is_active === true;
+        return $this->access_app === true;
     }
 
     
