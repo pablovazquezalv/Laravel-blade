@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
 
             Log::info('Se ejecutó la tarea programada');
 
-        })->everyFifteenSeconds();
+        })->everyTwentySeconds();
     }
 
     /**
