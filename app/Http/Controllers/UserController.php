@@ -20,6 +20,7 @@ use Exception;
 use App\Mail\CodeLogin;
 use App\Models\CodeAccess;
 use App\Models\CodesAccess;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 
 class UserController extends Controller
 {
@@ -180,11 +181,11 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(),
          [
-            'code' => 'required|max:4|min:4',
+            'code' => 'required',
         ],[
             'code.required' => 'El campo codigo es requerido',
-            'code.max' => 'El campo codigo no debe ser mayor a 4 caracteres',
-            'code.min' => 'El campo codigo no debe ser menor a 4 caracteres',
+            'code.max' => 'El campo codigo no debe ser mayor a 6 caracteres',
+            'code.min' => 'El campo codigo no debe ser menor a 6 caracteres',
         ]);
         if($validator->fails())
         {
@@ -197,7 +198,7 @@ class UserController extends Controller
 
         if($user)
         {
-
+            //guest
             if($user->rol_id == 3)
             {
                 if($request->code == Crypt::decryptString($user->code))
@@ -216,6 +217,7 @@ class UserController extends Controller
                             ->withInput();
                 }
             }
+            //coordinador
             else if($user->rol_id == 2 && gethostname() == 'DESKTOP-2QKJ2QK')
             {
                 if($request->code == Crypt::decryptString($user->code))
@@ -234,39 +236,30 @@ class UserController extends Controller
                             ->withInput();
                 }
             }
+            //Admin
             else if($user->rol_id == 1)
             {
-                //buscar el codigo en la tabla de codigos
                 $code = CodeAccess::where('code',$request->code)->first();
-
                 if($code)
-                {
-                    if($code->status == 0)
+                {   
+                   
+                    if($code->user_public_key === $user->public_key)
                     {
-                        if($code->expiration_date > now())
-                        {
-                            //$user->status = 1;
-                            $user->code = Crypt::encryptString(rand(1000,9999));
-                            $code->status = 1;
-                            $code->save();
-                            Auth::login($user);
-                            return redirect('/welcome');
-                        }
-                        else
-                        {
-                            $validator->errors()->add('code', 'El codigo ha expirado');
-                            return redirect('/logincode')
-                                    ->withErrors($validator)
-                                    ->withInput();
-                        }
+                        $user->status = 1;
+                        $user->code = Crypt::encryptString(rand(1000,9999));
+                        $user->save();
+                        Auth::login($user);
+                        return redirect('/welcome');
                     }
                     else
                     {
-                        $validator->errors()->add('code', 'El codigo ya fue utilizado');
+                        $validator->errors()->add('code', 'Error al  el codigo');
                         return redirect('/logincode')
-                                ->withErrors($validator)
-                                ->withInput();
+                            ->withErrors($validator)
+                            ->withInput();
                     }
+                    
+                   
             }
             else
             {
@@ -359,130 +352,7 @@ class UserController extends Controller
         }
     }
 
-    public function loginAppMobile(Request $request)
-    {
-        $validator = Validator::make($request->all(),
-         [
-            'email' => 'required|max:50|email',
-            'password' => 'required|max:50|min:6',
-        ],[
-            'email.required' => 'El campo correo es requerido',
-            'email.max' => 'El campo correo no debe ser mayor a 50 caracteres',
-            'email.email' => 'El campo correo debe ser de tipo email',
-            
-            'password.required' => 'El campo contraseña es requerido',
-            'password.max' => 'El campo contraseña no debe ser mayor a 50 caracteres',
-            'password.min' => 'El campo contraseña no debe ser menor a 6 caracteres',
-        ]);
-
-        if ($validator->fails()) 
-        {
-            return response()->json(['error' => $validator->errors()],404);
-        }
-        else
-        {
-            $user = User::where('email',$request->email)->first();
-
-
-            if($user)
-            {
-                if(Hash::check($request->password,$user->password))
-                {  
-                    //DARLE TOKEN
-                    $token = $user->createToken('token')->plainTextToken;
-                    return response()->json(['token' => $token],200);
-                }
-                else
-                {
-                    return response()->json(['error' => 'Creedenciales incorrectas'],404);
-                }
-            }
-            else
-            {
-                return response()->json(['error' => 'Credenciales incorrectas'],404);
-            }
-        }
-    }
-
-        public function loginCodeApp(Request $request)
-        {
-            $validator = Validator::make($request->all(),
-             [
-                'code' => 'required|max:4|min:4',
-            ],[
-                'code.required' => 'El campo codigo es requerido',
-                'code.max' => 'El campo codigo no debe ser mayor a 4 caracteres',
-                'code.min' => 'El campo codigo no debe ser menor a 4 caracteres',
-            ]);
-            if($validator->fails())
-            {
-                return response()->json(['error' => $validator->errors()],404);
-            }
-            //obtener usuario del token
-            $user = $request->user();
-
-
-
-            return response()->json(['user' => $user],200);
-            if($user)
-            {
-                if($request->code == Crypt::decryptString($user->code))
-                {
-                    //puede acceder y permitimos al middleware
-                    $user->access_app = 1;
-                    $user->save();
-                    
-                }
-                else
-                {
-                    return response()->json(['error' => 'El codigo es incorrecto'],404);
-                }
-            }
     
-        }
-    
-        public function getCodesAccess()
-        {
-            $codes = CodeAccess::all();
-
-            return response()->json($codes,200,['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
-        }
-
-
-        public function fillTableCodes()
-        {
-            $codes = CodeAccess::all();
-
-            if($codes->count() > 0)
-            {
-                //eliminar todos los registros
-                CodeAccess::truncate();
-
-                //lenar tabla
-                for ($i=0; $i < 10; $i++) { 
-                    $code = new CodeAccess();
-                    $code->code = rand(100000,999999);
-                    $code->status = 0;
-                    $code->expiration_date = now()->addDays(1);
-                    $code->save();
-                }
-            }
-            else{
-                //lenar tabla
-                for ($i=0; $i < 10; $i++) { 
-                    $code = new CodeAccess();
-                    $code->code = rand(10000,99999);
-                    $code->status = 0;
-                    $code->expiration_date = now()->addDays(1);
-                    $code->save();
-                }
-            }
-            
-
-            return response()->json(['success' => 'Tabla llenada con exito'],200);
-        }
-
-
 
 
 

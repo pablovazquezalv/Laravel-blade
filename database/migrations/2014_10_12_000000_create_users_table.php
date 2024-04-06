@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('email',50)->unique();
             $table->string('phone_number',10);
             $table->string('password');
+            //private key
+            $table->string('public_key',300)->nullable();
+            //$table->string('private_key',300)->nullable();
             //es para verificar si el correo fue verificado
             $table->boolean('status')->default(false);
             $table->boolean('access_app')->default(false);

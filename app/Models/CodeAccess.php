@@ -14,11 +14,16 @@ class CodeAccess extends Model
     protected $fillable = [
         'code',
         'status',
+        'user_public_key',
+        //'user_private_key',
+        'user_id',
         'expiration_date',
     ];
 
     protected $casts = [
         'expiration_date' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function user()

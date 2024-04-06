@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AppController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/loginApp',[UserController::class,'loginAppMobile'])->name('login.app');
-Route::post('/loginCodeApp',[UserController::class,'loginCodeApp'])->name('loginCode.app')->middleware('auth:sanctum');
-Route::get('/getCodesAccess',[UserController::class,'getCodesAccess'])->name('getCodesAccess.app');
-Route::get('/fillTableCodes',[UserController::class,'fillTableCodes'])->name('fillTableCodes.app');
+Route::post('/loginApp',[AppController::class,'loginAppMobile'])->name('login.app');
+Route::post('/loginCodeApp',[AppController::class,'loginCodeApp'])->name('loginCode.app')->middleware('auth:sanctum');
+Route::get('/getCodesAccess',[AppController::class,'getCodesAccess'])->name('getCodesAccess.app')->middleware('auth:sanctum')->middleware('roles.create:1')->middleware('status.user')->middleware('code.access');
+Route::get('/fillTableCodes',[AppController::class,'fillTableCodes'])->name('fillTableCodes.app');
+
+Route::get('/logout',[AppController::class,'logout'])->name('logout.app')->middleware('auth:sanctum');
+Route::get('/validateToken',[AppController::class,'validateToken'])->name('validateToken.app')->middleware('auth:sanctum');

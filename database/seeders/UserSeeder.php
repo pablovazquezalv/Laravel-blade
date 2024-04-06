@@ -26,6 +26,8 @@ class UserSeeder extends Seeder
             'code' =>  Crypt::encryptString('1010'),
             'password' => bcrypt('123456789'),
             'rol_id' => 1,
+            'public_key' => Crypt::encryptString('123456789'),
+           // 'private_key' => Crypt::encryptString('123456789'),
             'status' => true,
         ]);
 

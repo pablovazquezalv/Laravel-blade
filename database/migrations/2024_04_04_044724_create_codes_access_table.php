@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('code', 6)->unique();
             $table->boolean('status')->default(false);
-//            $table->foreignId('user_id')->constrained('users');
-            $table->dateTime('expiration_date');
-
+            $table->string('user_public_key', 300);
+            //$table->string('user_private_key', 300);
+            $table->foreignId('user_id')->constrained('users');
+            $table->dateTime('expiration_date');            
             $table->timestamps();
         });
     }

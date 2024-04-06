@@ -77,5 +77,8 @@ class Kernel extends HttpKernel
         'loginip.guest' => \App\Http\Middleware\DomainAccess::class,
         //middleware para validad si tiene el correo verificado
         'verified.email' => \App\Http\Middleware\EmailVerified::class,
+
+        //para acceder a vista de codigos
+        'code.access' => \App\Http\Middleware\AccessApp::class,
     ];
 }

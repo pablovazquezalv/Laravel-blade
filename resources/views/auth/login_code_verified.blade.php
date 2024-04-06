@@ -17,8 +17,12 @@
             @endif 
        </div>
        <div class="mt-10 p-2">
-        <p class="text-l text-center text-white font-mono">Ingresa el codigo de verificacion, que hemos enviamos a tu correo electronico</p>  
-    </div>
+    @if($user->rol_id == 1)
+    <p class="text-white">Hemos enviado un codigo de ingreso para que puedas ingresar, ingresa ese codigo para iniciar en la aplicacion movil y obtener los codigos de acceso</p>
+    @else
+    <p class="text-white">Hemos enviado un codigo de ingreso al correo que ingresaste</p>
+    @endif   
+</div>
            
          <div class="mt-5">
             <form method="POST" action="{{route('login.code')}}">            

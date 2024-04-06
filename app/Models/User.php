@@ -24,10 +24,12 @@ class User extends Authenticatable
         'email',
         'phone_number',
         'code', 
+        'public_key',
+        //'private_key',
         
         'email_verified_at',
         'status',
-        'is_active',
+        'access_app',
         'password',
         'rol_id',
     ];
@@ -61,15 +63,19 @@ class User extends Authenticatable
     public function statusActive(): bool
     {
         //si es bd mysql es 1
-       // return $this->status === 1;
+       return $this->status === 1;
 
         //si es postgresql es true
-        return $this->status === true;
+        //return $this->status === true;
     }
 
-    public function nullValue(): ?string
+    public function isActive(): bool
     {
-        return null;
+        //si es bd mysql es 1
+        return $this->access_app === 1;
+
+        //si es postgresql es true
+        //return $this->is_active === true;
     }
 
     
