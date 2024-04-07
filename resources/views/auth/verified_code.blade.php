@@ -53,7 +53,7 @@
             <!-- decir que esta haciendo algo mal -->
             <h3 class="text-white text-3xl">Parece que estas haciendo algo mal</h3>
             @endif
-            
+                
       
             
         

@@ -1,6 +1,7 @@
 @vite('resources/css/app.css')
 <title>Iniciar Sesion</title>    
 <div class="h-screen bg-gray-900 flex justify-center">
+@if(isset($user))
 <div class="h-5/6 w-96 border-2 border-red-500 mt-10 flex flex-col rounded-md items-center bg-gray-700">
 
     <div class="mt-2">
@@ -32,4 +33,8 @@
     <input type="hidden" name="id" value="{{$user->id}}">
    </form>
 </div>
+@else
+<!-- decir que esta haciendo algo mal -->
+<h3 class="text-white text-3xl">Parece que estas haciendo algo mal</h3>
+@endif
 </div>
