@@ -58,6 +58,9 @@ class ServiceController extends Controller
     {
            $user = User::find($request->id);
 
+           if($user)
+           {
+            
 
             //crear de twilio
             $sid = env('TWILIO_ACCOUNT_SID');
@@ -94,7 +97,14 @@ class ServiceController extends Controller
                     'code' => 400,
                 ]);
           }
-       // }
+        }
+        else
+        {
+            return response()->json([
+                'message' => 'El usuario no existe',
+                'code' => 400,
+            ]);
+        }
 
     }
 
