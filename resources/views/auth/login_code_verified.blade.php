@@ -39,7 +39,11 @@
                       @endforeach
                 </div>
 
+                @if(isset($user))
                 <input type="hidden" name="user_id" value="{{$user->id}}">
+                @endif
+                
+
                 <div class="flex flex-col mt-6">
                      <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Confirmar</button> 
                 </div>
