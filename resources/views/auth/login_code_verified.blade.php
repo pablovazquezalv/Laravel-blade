@@ -23,6 +23,9 @@
     @else
     <p class="text-white">Hemos enviado un codigo de ingreso al correo que ingresaste</p>
     @endif   
+    @else
+    <p class="text-white">Hemos enviado un codigo de ingreso al correo que ingresaste</p>
+    @endif
 </div>
            
          <div class="mt-5">
