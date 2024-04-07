@@ -11,22 +11,17 @@
             <h3 class=" text-xl font-sans font-bold text-white text-center">Ingresa el codigo que te enviamos para poder iniciar sesion</h1>
         </div>
         <div class="mt-6">
-            @if(isset($user))
             <h2 class="text-xl text-white font-mono">Hola!  {{$user->name}} {{$user->last_name}}</h2>
-            @else
-            <h2 class="text-xl text-white font-mono">Bienvenido </h2>
-            @endif 
+            
        </div>
        <div class="mt-10 p-2">
-    @if(isset($user))
+   
     @if($user->rol_id == 1)
     <p class="text-white">Hemos enviado un codigo de ingreso para que puedas ingresar, ingresa ese codigo para iniciar en la aplicacion movil y obtener los codigos de acceso</p>
     @else
     <p class="text-white">Hemos enviado un codigo de ingreso al correo que ingresaste</p>
     @endif   
-    @else
-    <p class="text-white">Hemos enviado un codigo de ingreso al correo que ingresaste</p>
-    @endif
+   
 </div>
            
          <div class="mt-5">
@@ -61,5 +56,5 @@
 </div>
 @else
 <!-- decir que esta haciendo algo mal -->
-<h3 class="text-white">Parece que estas haciendo algo mal</h3>
+<h3 class="text-white text-3xl">Parece que estas haciendo algo mal</h3>
 @endif
