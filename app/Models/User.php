@@ -62,20 +62,39 @@ class User extends Authenticatable
 
     public function statusActive(): bool
     {
+
+        if(env('DB_CONNECTION') === 'pgsql')
+        {
+            return $this->status === true;
+        }
+        else
+        {
+            return $this->status === 1;
+        }
         //si es bd mysql es 1
       // return $this->status === 1;
 
+      
         //si es postgresql es true
-        return $this->status === true;
+        //return $this->status === true;
     }
 
     public function isActive(): bool
     {
+
+        if(env('DB_CONNECTION') === 'pgsql')
+        {
+            return $this->access_app === true;
+        }
+        else
+        {
+            return $this->access_app === 1;
+        }
         //si es bd mysql es 1
         //return $this->access_app === 1;
 
         //si es postgresql es true
-        return $this->access_app === true;
+//        return $this->access_app === true;
     }
 
     

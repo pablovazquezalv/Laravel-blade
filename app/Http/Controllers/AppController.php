@@ -165,8 +165,21 @@ class AppController extends Controller
             {
                 return response()->json(['error' => 'Token invalido'],404);
             }
-            
-              
+                
+         }
+
+         public function accessApp(Request $request)
+         {
+            $user = $request->user();
+
+            if($user->access_app == 1)
+            {
+                return response()->json(['success' => 'Acceso permitido'],200);
+            }
+            else
+            {
+                return response()->json(['error' => 'Acceso denegado'],404);
+            }
          }
         
 

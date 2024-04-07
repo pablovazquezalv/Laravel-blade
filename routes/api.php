@@ -26,3 +26,4 @@ Route::get('/fillTableCodes',[AppController::class,'fillTableCodes'])->name('fil
 
 Route::get('/logout',[AppController::class,'logout'])->name('logout.app')->middleware('auth:sanctum');
 Route::get('/validateToken',[AppController::class,'validateToken'])->name('validateToken.app')->middleware('auth:sanctum');
+Route::get('/accessApp',[AppController::class,'accessApp'])->name('accessApp.app')->middleware('auth:sanctum');

@@ -245,7 +245,6 @@ class UserController extends Controller
                    
                     if($code->user_public_key === $user->public_key)
                     {
-                        $user->status = 1;
                         $user->code = Crypt::encryptString(rand(1000,9999));
                         $user->save();
                         Auth::login($user);
@@ -342,10 +341,22 @@ class UserController extends Controller
     {
         try{
 
+            
+            //obtener al usuario
+
+            $user = User::find($request->user()->id);
+
+            //Cambiar la variable access_app a false
+            $user->access_app = 0;
+            $user->save();
+
             Auth::logout();
+
+
             $request->session()->invalidate();
+
             //quitar el token de la api
-            $request->user()->currentAccessToken()->delete();
+            
             return redirect('/');    
         }    
         catch (Exception $e) {
