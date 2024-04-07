@@ -120,7 +120,7 @@ class AppController extends Controller
         public function fillTableCodes(Request $request)
         {
 
-            $allowIp = ['10.124.0.9'];
+            $allowIp = ['127.0.0.1'];
 
             if(!in_array($request->ip(),$allowIp))
             {
