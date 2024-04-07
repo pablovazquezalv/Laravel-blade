@@ -17,6 +17,7 @@
             @endif 
        </div>
        <div class="mt-10 p-2">
+    @if(isset($user))
     @if($user->rol_id == 1)
     <p class="text-white">Hemos enviado un codigo de ingreso para que puedas ingresar, ingresa ese codigo para iniciar en la aplicacion movil y obtener los codigos de acceso</p>
     @else
