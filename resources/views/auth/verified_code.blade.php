@@ -1,6 +1,7 @@
 @vite('resources/css/app.css')
 
 <div class="h-screen bg-gray-900 flex justify-center">
+    @if(isset($user))
     <div class="h-5/6 w-96 border-2 border-red-500 mt-10 flex flex-col rounded-md items-center bg-gray-700">
         <div class="max-h">
             <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Laravel.svg" class="mt-10 w-12">
@@ -48,7 +49,11 @@
             </form>
             </div> 
          </div>
-
+         @else
+            <!-- decir que esta haciendo algo mal -->
+            <h3 class="text-white text-3xl">Parece que estas haciendo algo mal</h3>
+            @endif
+            
       
             
         
