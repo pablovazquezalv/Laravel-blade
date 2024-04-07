@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('user_public_key', 300);
             //$table->string('user_private_key', 300);
             $table->foreignId('user_id')->constrained('users');
-            $table->dateTime('expiration_date');            
+            //segundos de vida 
+            $table->integer('expiration_time')->default(15);  
             $table->timestamps();
         });
     }

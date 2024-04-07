@@ -96,20 +96,18 @@ class AppController extends Controller
     
         }
     
-        public function getCodesAccess()
+        public function getCodesAccess(Request $request)
         {
+
+            $user = $request->user();
+
+            if(!$user)
+            {
+                return response()->json(['error' => 'Usuario no encontrado'],404);
+            }
+
             //mostrar solo las claves publicas
-            $codes = CodeAccess::all()->map(function($code){
-                return [
-                    'id' => $code->id,
-                    'code' => $code->code,
-                    'status' => $code->status,
-                    'user_id' => $code->user_id,
-                    'expiration_date' => $code->expiration_date,
-                    'created_at' => $code->created_at,
-                    'updated_at' => $code->updated_at,
-                ];
-            });
+            $codes = CodeAccess::where('user_id',$user->id)->get(['code','status','user_id','expiration_time','created_at','updated_at']);
 
             return response()->json($codes,200,['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
        

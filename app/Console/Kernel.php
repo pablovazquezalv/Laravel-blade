@@ -35,7 +35,6 @@ class Kernel extends ConsoleKernel
                         'user_public_key' => $user->public_key,
                         //'user_private_key' => $user->private_key,
                         'user_id' => $user->id,
-                        'expiration_date' => now()->addDays(1),
                         'created_at' => now(),
                         'updated_at' => now(),
                     ];

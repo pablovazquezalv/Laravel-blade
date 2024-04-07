@@ -17,7 +17,7 @@ class CodeAccess extends Model
         'user_public_key',
         //'user_private_key',
         'user_id',
-        'expiration_date',
+        'expiration_time',
     ];
 
     protected $casts = [
