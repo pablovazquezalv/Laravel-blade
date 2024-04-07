@@ -344,6 +344,8 @@ class UserController extends Controller
 
             Auth::logout();
             $request->session()->invalidate();
+            //quitar el token de la api
+            $request->user()->currentAccessToken()->delete();
             return redirect('/');    
         }    
         catch (Exception $e) {
