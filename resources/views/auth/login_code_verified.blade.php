@@ -1,5 +1,7 @@
 @vite('resources/css/app.css')
 <!-- vista para loguear con codigo de verificacion -->
+
+@if(isset($user))
 <div class="h-screen bg-gray-900 flex justify-center">
     <div class="h-5/6 w-96 border-2 border-red-500 mt-10 flex flex-col rounded-md items-center bg-gray-700">
         <div class="max-h">
@@ -42,7 +44,7 @@
                 @if(isset($user))
                 <input type="hidden" name="user_id" value="{{$user->id}}">
                 @endif
-                
+
 
                 <div class="flex flex-col mt-6">
                      <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Confirmar</button> 
@@ -56,9 +58,8 @@
                 <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Confirmar</button> 
             </form>
             </div>  --}}
-         </div>
-
-      
-            
-        
+         </div>  
 </div>
+@else
+<!-- decir que esta haciendo algo mal -->
+<h3 class="text-white">Parece que estas haciendo algo mal</h3>
