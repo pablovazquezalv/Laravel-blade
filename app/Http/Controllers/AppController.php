@@ -107,7 +107,7 @@ class AppController extends Controller
             }
 
             //mostrar solo las claves publicas
-            $codes = CodeAccess::where('user_id',$user->id)->get(['code','status','user_id','expiration_time','created_at','updated_at']);
+            $codes = CodeAccess::where('user_id',$user->id)->get(['id','code','status','user_id','expiration_time','created_at','updated_at']);
 
             return response()->json($codes,200,['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
        
