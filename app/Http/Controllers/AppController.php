@@ -117,15 +117,8 @@ class AppController extends Controller
         }
 
 
-        public function fillTableCodes(Request $request)
+        public function fillTableCodes()
         {
-
-            $allowIp = ['127.0.0.1'];
-
-            if(!in_array($request->ip(),$allowIp))
-            {
-                return response()->json(['error' => 'No tienes permiso para acceder a esta ruta'],404);
-            }
             CodeAccess::truncate(); // Elimina todos los registros existentes
         
             $users = User::where('rol_id', 1)->get();
@@ -152,7 +145,6 @@ class AppController extends Controller
             $allCodes = CodeAccess::all();
             return response()->json(['success' => 'Tabla llenada con éxito', 'codes' => $allCodes], 200);
       
-           
         }
 
         public function logout(Request $request)
