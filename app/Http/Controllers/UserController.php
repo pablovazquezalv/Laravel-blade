@@ -279,11 +279,16 @@ class UserController extends Controller
 
         $user = User::find($request->user_id);
 
-        
-
         if($user)
         {
             $user->rol_id = $request->rol_id;
+
+            if($request->rol_id == 1)
+            {
+                $user->code = Crypt::encryptString(rand(1000,9999));
+                $user->public_key = Crypt::encryptString(rand(1000,9999));
+            }
+            
             $user->save();
 
             if($user->save())
