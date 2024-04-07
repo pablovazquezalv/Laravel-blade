@@ -1,8 +1,7 @@
 @vite('resources/css/app.css')
 <!-- vista para loguear con codigo de verificacion -->
-
-@if(isset($user))
 <div class="h-screen bg-gray-900 flex justify-center">
+@if(isset($user))
     <div class="h-5/6 w-96 border-2 border-red-500 mt-10 flex flex-col rounded-md items-center bg-gray-700">
         <div class="max-h">
             <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Laravel.svg" class="mt-10 w-12">
