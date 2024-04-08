@@ -11,7 +11,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/register',[ViewController::class,"registerView"])->name('register.view');//registro
     Route::post('/register', [UserController::class, 'register'])->name('register.user');//funcion registro
     Route::get('/login',[ViewController::class,'loginView'])->name('login.view');//login
-    Route::post('/login', [UserController::class, 'login'])->name('login.user');//funcion login
+    Route::post('/login', [UserController::class, 'login'])->name('login.user')->middleware('loginip');;//funcion login
     Route::get('/information',[ViewController::class,'informationView'])->name('information.view');//vista de que se le envio un correo
     Route::get('mailresend',[ViewController::class,'mailResendView'])->name('mail.resend.view');//vista de que se le reenvio un correo con exito
     Route::get('/verified',[ViewController::class,'verifiedCodeView'])->name('verified.view');//vista para verificar el codigo
