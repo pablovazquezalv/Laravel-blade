@@ -13,7 +13,7 @@ class DomainAccess
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next,$role): Response
+    public function handle(Request $request, Closure $next): Response
     {
 
         if($request->user()->rol_id == 3)
