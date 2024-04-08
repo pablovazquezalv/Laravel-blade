@@ -49,6 +49,6 @@ class DomainAccess
             abort(403);
        }
     }
-    abort(403);
+    abort(404);
     }
 }
