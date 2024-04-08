@@ -16,13 +16,9 @@ class DomainAccess
     public function handle(Request $request, Closure $next): Response
     {
 
-        if($request->user()->rol_id === 3)
+        If($request->user()->hasRole(1))
         {
-            return $next($request);
-        }
-        else if($request->user()->rol_id == 2)
-        {
-            if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.2')
+            if($request->getHost() == '192.168.25.2')
             {
                 return $next($request);
             }
@@ -30,18 +26,23 @@ class DomainAccess
             $request->session()->regenerateToken();
             return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
         }
-        else if($request->user()->rol_id == 1)
+        else if($request->user()->hasRole(2))
         {
-
-            if($request->getHost() == '192.168.25.2')
+            if($request->getHost() == 'danielypablo.tech')
             {
-
+                return $next($request);
             }
             $request->session()->invalidate();
             $request->session()->regenerateToken();
             return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
         }
-
+        else if($request->user()->hasRole(3))
+        {
+            if($request->getHost() == 'danielypablo.tech')
+            {
+                return $next($request);
+            }
+        }
 
         // if ($request->user()->hasRole($role)) 
         // {
