@@ -15,8 +15,12 @@ class DomainAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->user()->rol_id === 1)
+
+        dd($request->user());
+
+        if( $request->user()->rol_id === 1)
         {
+            
             return $next($request);
         } 
         abort(403);
