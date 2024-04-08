@@ -149,12 +149,7 @@ class UserController extends Controller
 
                Mail::to($user->email)->send(new CodeLogin($user,$code));
                return redirect('/logincode');
-                // Auth::login($user);
-                    
-                // Log::info('Usuario normal sesion iniciada correctamente '.$user->id);
-                // return redirect('/welcome');
-                
-
+            
             }
             else
             {

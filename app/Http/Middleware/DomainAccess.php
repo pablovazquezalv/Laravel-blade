@@ -15,40 +15,47 @@ class DomainAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        $userId = session('user_id');
-
-        
-        $user = User::find($userId);
-
-        if($user)
+        if($request->user()->rol_id === 1)
         {
-            
-        if($user->rol_id === 1)
-        {
-            if($request->getHost() == '192.168.25.0')
-            {
-                return $next($request);
-            }
-            abort(403);
-        }
-        if($user->rol_id === 2)
-        {
-            if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.0')
-            {
-                return $next($request);
-            }
-            abort(403);
-        }
-        if($user->rol_id === 3)
-        {
-            if($request->getHost() == 'danielypablo.tech')
-            {
-                return $next($request);
-            }
-            abort(403);
-       }
-    }
-    abort(404);
+            return $next($request);
+        } 
+        abort(403);
     }
 }
+        
+    //     $userId = session('user_id');
+
+        
+    //     $user = User::find($userId);
+
+    //     if($user)
+    //     {
+            
+    //     if($user->rol_id === 1)
+    //     {
+    //         if($request->getHost() == '192.168.25.0')
+    //         {
+    //             return $next($request);
+    //         }
+    //         abort(403);
+    //     }
+    //     if($user->rol_id === 2)
+    //     {
+    //         if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.0')
+    //         {
+    //             return $next($request);
+    //         }
+    //         abort(403);
+    //     }
+    //     if($user->rol_id === 3)
+    //     {
+    //         if($request->getHost() == 'danielypablo.tech')
+    //         {
+    //             return $next($request);
+    //         }
+    //         abort(403);
+    //    }
+    // }
+    // abort(404);
+    // }
+
