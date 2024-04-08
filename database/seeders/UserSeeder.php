@@ -48,7 +48,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'guest',
             'last_name' => 'laravel',
-            'email' => 'jesusdanielgascaalvarado@gmail.com',
+            'email' => 'pabloalvaradovazquez10@gmail.com',
             'phone_number' => '1234567890',
             'password' => bcrypt('123456789'),
             'code' =>  Crypt::encryptString('1010'),
