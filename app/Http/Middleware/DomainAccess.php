@@ -16,7 +16,7 @@ class DomainAccess
     public function handle(Request $request, Closure $next): Response
     {
 
-        if($request->user()->rol_id == 3)
+        if($request->user()->rol_id === 3)
         {
             return $next($request);
         }
