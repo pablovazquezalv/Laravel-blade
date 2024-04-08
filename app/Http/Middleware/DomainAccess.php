@@ -30,7 +30,7 @@ class DomainAccess
             $request->session()->regenerateToken();
             return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
         }
-        else if($request->user()->rol_id == 3)
+        else if($request->user()->rol_id == 1)
         {
 
             if($request->getHost() == '192.168.25.2')
@@ -41,7 +41,7 @@ class DomainAccess
             $request->session()->regenerateToken();
             return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
         }
-        
+
 
         // if ($request->user()->hasRole($role)) 
         // {
