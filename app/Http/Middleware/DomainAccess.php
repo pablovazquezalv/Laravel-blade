@@ -21,7 +21,9 @@ class DomainAccess
         
         $user = User::find($userId);
 
-
+        if($user)
+        {
+            
         if($user->rol_id === 1)
         {
             if($request->getHost() == '192.168.25.0')
@@ -45,25 +47,8 @@ class DomainAccess
                 return $next($request);
             }
             abort(403);
-
-        
-    
-        // if ($request->user()->hasRole($role)) 
-        // {
-            
-        //     if($request->getHost() == 'danielypablo.tech')
-        //     {
-        //         return $next($request);
-        //     }
-        //     $request->session()->invalidate();
-        // $request->session()->regenerateToken();
-        // return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
-        // }
-        // $request->session()->invalidate();
-        // $request->session()->regenerateToken();
-        // return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
-
-
+       }
     }
+    abort(403);
     }
 }
