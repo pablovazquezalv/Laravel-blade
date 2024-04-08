@@ -15,21 +15,49 @@ class DomainAccess
      */
     public function handle(Request $request, Closure $next,$role): Response
     {
-        if ($request->user()->hasRole($role)) 
+
+        if($request->user()->rol_id == 3)
         {
-            
-            if($request->getHost() == 'danielypablo.tech')
+            return $next($request);
+        }
+        else if($request->user()->rol_id == 2)
+        {
+            if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.2')
             {
                 return $next($request);
             }
             $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+            $request->session()->regenerateToken();
+            return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
         }
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+        else if($request->user()->rol_id == 3)
+        {
 
+            if($request->getHost() == '192.168.25.2')
+            {
+
+            }
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+        }
         
+
+        // if ($request->user()->hasRole($role)) 
+        // {
+            
+        //     if($request->getHost() == 'danielypablo.tech')
+        //     {
+        //         return $next($request);
+        //     }
+        //     $request->session()->invalidate();
+        // $request->session()->regenerateToken();
+        // return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+        // }
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
+        // return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+
+
     }
 }

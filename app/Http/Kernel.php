@@ -74,8 +74,9 @@ class Kernel extends HttpKernel
        //middleware para ver si el status es activo (1)
         'status.user' => \App\Http\Middleware\StatusUser::class,
         //middleware para ver si el dominio es el correcto
-        'loginip.guest' => \App\Http\Middleware\DomainAccess::class,
+        'loginip' => \App\Http\Middleware\DomainAccess::class,
         //middleware para validad si tiene el correo verificado
+        'vpn.access' => \App\Http\Middleware\VPNAccess::class,
         'verified.email' => \App\Http\Middleware\EmailVerified::class,
 
         //para acceder a vista de codigos
