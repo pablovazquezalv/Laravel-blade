@@ -24,13 +24,30 @@ class DomainAccess
 
         if($user->rol_id === 1)
         {
-            if($request->getHost() == '192.168.25.8')
+            if($request->getHost() == '192.168.25.0')
             {
                 return $next($request);
             }
             abort(403);
         }
+        if($user->rol_id === 2)
+        {
+            if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.0')
+            {
+                return $next($request);
+            }
+            abort(403);
+        }
+        if($user->rol_id === 3)
+        {
+            if($request->getHost() == 'danielypablo.tech')
+            {
+                return $next($request);
+            }
+            abort(403);
 
+        
+    
         // if ($request->user()->hasRole($role)) 
         // {
             
@@ -47,5 +64,6 @@ class DomainAccess
         // return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
 
 
+    }
     }
 }
