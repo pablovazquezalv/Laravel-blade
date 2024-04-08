@@ -22,32 +22,14 @@ class DomainAccess
         $user = User::find($userId);
 
 
-        if($user->rol_id === 3)
+        if($user->rol_id === 1)
         {
-            return $next($request);
-        }
-        else if($user->rol_id === 2)
-        {
-            if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.2')
+            if($request->getHost() == '192.168.25.8')
             {
                 return $next($request);
             }
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-            return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+            abort(403);
         }
-        else if($user->rol_id == 1)
-        {
-
-            if($request->getHost() == '192.168.25.2')
-            {
-
-            }
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-            return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
-        }
-
 
         // if ($request->user()->hasRole($role)) 
         // {
