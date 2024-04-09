@@ -198,7 +198,7 @@ class UserController extends Controller
             {
                 if($request->code == Crypt::decryptString($user->code))
                 {
-                    $user->status = 1;
+                    
                     $user->code = Crypt::encryptString(rand(1000,9999));
                     $user->save();
                     Auth::login($user);
@@ -217,7 +217,7 @@ class UserController extends Controller
             {
                 if($request->code == Crypt::decryptString($user->code))
                 {
-                    $user->status = 1;
+                    
                     $user->code = Crypt::encryptString(rand(1000,9999));
                     $user->save();
                     Auth::login($user);
