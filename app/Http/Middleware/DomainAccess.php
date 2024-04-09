@@ -33,7 +33,7 @@ class DomainAccess
                 }
                 abort(404);
             }
-            if($user->rol_id === 2)
+            else if($user->rol_id === 2)
             {
                 if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.2')
                 {
@@ -41,7 +41,7 @@ class DomainAccess
                 }
                 abort(403);
             }
-            if($user->rol_id === 3)
+            else if($user->rol_id === 3)
             {
                 if($request->getHost() == 'danielypablo.tech')
                 {
