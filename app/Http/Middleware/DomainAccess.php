@@ -36,6 +36,7 @@ class DomainAccess
             }
             else if($user->rol_id === 2)
             {
+                dd($request->getHost());
                 if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.2')
                 {
                     return $next($request);
