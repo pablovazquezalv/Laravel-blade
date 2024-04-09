@@ -18,51 +18,12 @@ class VPNAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        //obtener el usuario autenticado
-        $user = Auth::user();
-        
-        dd($user);
-        if($user)
-        {
-            $rol = $user->rol_id;
-            //dd($rol);
-            if($rol == 3)
-            {
-
-                if($request->getHost() == 'danielypablo.tech')
-                {
-                    return $next($request);
-                }
-
-                
-            }
-            else if($rol == 2)
-            {
-              
-                if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.2')
-                {
-                  
-                    return $next($request);
-                }
-                abort(403);
-            }
-            else if($rol == 1)
-            {
-                if($request->getHost() == '192.168.25.2')
-                {
-                    return $next($request);
-                } 
-                alert('Debes acceder por el dominio de la empresa');
-            }
-            return redirect()->route('login.view');
+        if (Auth::check()) {
+            $user = Auth::user();
+            dd($user); // Mostrar información del usuario autenticado
+        } else {
+            dd('No hay usuario autenticado'); // Mostrar mensaje si no hay usuario autenticado
         }
-      //   $request->session()->invalidate();
-      //   $request->session()->regenerateToken();
-      //   return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
-        alert('Debes iniciar sesión');
-
-        
         
     }
 }
