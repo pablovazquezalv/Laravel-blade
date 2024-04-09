@@ -20,7 +20,40 @@ class DomainAccess
 
         
         $user = User::where('email',$request->email)->first();
-        dd($user);
+        
+        if($user)
+        {
+            //Hash::check($request->password,$user->password);
+
+            if($user->rol_id === 1)
+            {
+                if($request->getHost() == '192.168.25.2')
+                {
+                    return $next($request);
+                }
+                abort(403);
+            }
+            if($user->rol_id === 2)
+            {
+                if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.2')
+                {
+                    return $next($request);
+                }
+                abort(403);
+            }
+            if($user->rol_id === 3)
+            {
+                if($request->getHost() == 'danielypablo.tech')
+                {
+                    return $next($request);
+                }
+                abort(403);
+
+            }
+
+        }
+
+
          
         abort(403);
     }
