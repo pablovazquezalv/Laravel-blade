@@ -45,7 +45,7 @@ class DomainAccess
             }
             else if($user->rol_id === 3)
             {
-                if($request->getHost() == 'danielypablo.tech')
+                if($request->getHost() === 'danielypablo.tech')
                 {
                     return $next($request);
                 }
