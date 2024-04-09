@@ -38,7 +38,7 @@ Route::middleware(['roles.create:1','status.user','auth'])->group(function () {
     Route::post('/changeStatus/{id}', [UserController::class, 'changeStatus'])->name('change.status')->where('id', '[0-9]+');
 });
 //TICKETS
-Route::middleware(['roles.create:1,2','status.user','auth'])->group(function () {
+Route::middleware(['roles.create:2','status.user','auth'])->group(function () {
     Route::get('/tickets', [ViewController::class, 'TicketCreateView'])->name('tickets.create.view');
     Route::post('/tickets', [TicketController::class, 'createTicket'])->name('tickets.create');
     Route::get('/ticket/{id}', [ViewController::class, 'TicketEditView'])->name('tickets.edit.view')->where('id', '[0-9]+');
