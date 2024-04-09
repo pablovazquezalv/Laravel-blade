@@ -33,7 +33,9 @@ class DomainAccess
                     //dd($request->getHost());
                     return $next($request);
                 }
-                abort(403);
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
             }
             else if($rol == 2)
             {
@@ -41,15 +43,19 @@ class DomainAccess
                 {
                     return $next($request);
                 }
-                abort(403);
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
             }
             else if($rol == 1)
             {
                 if($request->getHost() == '192.168.25.2')
                 {
                     return $next($request);
-                }
-                abort(403);
+                } 
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
             }
             abort(404);
 
