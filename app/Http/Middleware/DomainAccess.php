@@ -23,27 +23,10 @@ class DomainAccess
         
         if($user)
         {
+            
             //Hash::check($request->password,$user->password);
 
-            if($user->rol_id === 1)
-            {
-                dd($request->getHost());
-                if($request->getHost() == '192.168.25.2')
-                {
-                    return $next($request);
-                }
-                abort(404);
-            }
-            else if($user->rol_id === 2)
-            {
-                dd($request->getHost());
-                if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.2')
-                {
-                    return $next($request);
-                }
-                abort(403);
-            }
-            else if($user->rol_id === 3)
+            if($user->rol_id === 3)
             {
                 if($request->getHost() === 'danielypablo.tech')
                 {
