@@ -31,7 +31,7 @@ class VPNAccess
                 {
                     return $next($request);
                 }
-                alert('Debes acceder desde la VPN');
+
                 
             }
             else if($rol == 2)
@@ -42,7 +42,7 @@ class VPNAccess
                   
                     return $next($request);
                 }
-                alert('Debes acceder desde la VPN o por el dominio de la empresa');
+                abort(403);
             }
             else if($rol == 1)
             {
