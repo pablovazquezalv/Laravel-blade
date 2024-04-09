@@ -49,7 +49,7 @@ class DomainAccess
                   }
                   $request->session()->invalidate();
                   $request->session()->regenerateToken();
-                  abort(403);
+                  return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
               }
               else if($rol == 1)
               {
@@ -66,10 +66,10 @@ class DomainAccess
               return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
        
           }
-          $request->session()->invalidate();
-          $request->session()->regenerateToken();
-          return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
-   
+        //   $request->session()->invalidate();
+        //   $request->session()->regenerateToken();
+        //   return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+          abort(404);
 
         
     }
