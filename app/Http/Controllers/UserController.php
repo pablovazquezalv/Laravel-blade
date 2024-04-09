@@ -47,7 +47,7 @@ class UserController extends Controller
             'last_name.alpha'=> 'El campo apellido debe ser de tipo alfabetico',
 
             'email.required' => 'El campo correo es requerido',
-            'email.unique' => 'El campo correo ya existe',
+            'email.unique' => 'Debe ser un correo valido',
             'email.max' => 'El campo correo no debe ser mayor a 50 caracteres',
             'email.email' => 'El campo correo debe ser de tipo email',
             

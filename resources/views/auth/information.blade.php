@@ -1,7 +1,10 @@
 @vite('resources/css/app.css')
 <title>Iniciar Sesion</title>    
 <div class="h-screen bg-gray-900 flex justify-center">
-<div class="h-5/6 w-96 border-2 border-red-500 mt-10 flex flex-col rounded-md items-center bg-gray-700">
+
+ @if(isset($user))
+
+    <div class="h-5/6 w-96 border-2 border-red-500 mt-10 flex flex-col rounded-md items-center bg-gray-700">
 
     <div class="mt-2">
         <h1 class=" text-3xl font-sans font-bold text-white">Verifica tu correo</h1>
@@ -35,5 +38,7 @@
     
    </form>
 </div>
+@else
+<h3 class="text-white">Parece que estas haciendo algo mal...</h3>
 </div>
 
