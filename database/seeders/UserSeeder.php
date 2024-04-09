@@ -35,10 +35,10 @@ class UserSeeder extends Seeder
         //puede  crear tickets, asignar tickets a tecnicos, ver tickets, editar tickets, eliminar tickets
         DB::table('users')->insert([
             'name' => 'coordinator',
-            'last_name' => 'laravel',
+            'last_name' => 'exalariacrew',
             'email' => 'exalariacrew.sma@gmail.com',
             'phone_number' => '1234567890',
-            'code' =>  Crypt::encryptString('1010'),
+            'code' =>  Crypt::encryptString('1030'),
             'password' => bcrypt('123456789'),
             'rol_id' => 2,
             'status' => true,
@@ -47,11 +47,11 @@ class UserSeeder extends Seeder
         //solo ver tickets
         DB::table('users')->insert([
             'name' => 'guest',
-            'last_name' => 'laravel',
+            'last_name' => 'pablo',
             'email' => 'pabloalvaradovazquez10@gmail.com',
             'phone_number' => '1234567890',
             'password' => bcrypt('123456789'),
-            'code' =>  Crypt::encryptString('1010'),
+            'code' =>  Crypt::encryptString('1050'),
             'rol_id' => 3,
             'status' => true,
         ]);
