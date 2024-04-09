@@ -12,6 +12,9 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/register', [UserController::class, 'register'])->name('register.user');//funcion registro
     Route::get('/login',[ViewController::class,'loginView'])->name('login.view');//login
     Route::post('/login', [UserController::class, 'login'])->name('login.user')->middleware('loginip');//funcion login
+    
+    Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');
+    Route::get('/logincode',[ViewController::class,'loginCodeVerifiedView'])->name('login.code.view')->middleware('loginip');
     Route::get('/information',[ViewController::class,'informationView'])->name('information.view');//vista de que se le envio un correo
     Route::get('mailresend',[ViewController::class,'mailResendView'])->name('mail.resend.view');//vista de que se le reenvio un correo con exito
     Route::get('/verified',[ViewController::class,'verifiedCodeView'])->name('verified.view');//vista para verificar el codigo
@@ -24,10 +27,11 @@ Route::middleware(['guest'])->group(function () {
 
 //invitado puede acceder solo por dominio
 
+//vista de que se le envio un correo
+//Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');#->middleware('status.user');//funcion login
+Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('auth')->middleware('status.user');#->middleware('loginip');
 
-Route::get('/logincode',[ViewController::class,'loginCodeVerifiedView'])->name('login.code.view');//vista de que se le envio un correo
-Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');#->middleware('status.user');//funcion login
-Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('auth')->middleware('status.user');#->middleware('loginip');#->middleware('loginip.guest:1');//solo en produccion pagina inicio 
+
 Route::get('/logout',[UserController::class,'logout'])->name('logout.user')->middleware('auth');
 
 
