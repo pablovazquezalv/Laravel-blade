@@ -14,12 +14,17 @@ class RolesCreate
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next,int $role): Response
+    public function handle(Request $request, Closure $next,$role): Response
     {
-        if (! $request->user()->hasRole($role)) {
-            
-            return redirect('/welcome');
+     //   $request->user()->rol_id;
+        if (in_array($request->user()->rol_id, $role)) {
+            return $next($request);
         }
-        return $next($request);
+        return redirect('/welcome');
+        // if (!$request->user()->hasRole($role)) {
+            
+        //     return redirect('/welcome');
+        // }
+        // return $next($request);
     }
 }
