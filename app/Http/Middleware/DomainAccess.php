@@ -44,7 +44,7 @@ class DomainAccess
                 
                   if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.2')
                   {
-                    dd($rol);
+                    
                       return $next($request);
                   }
                   $request->session()->invalidate();
