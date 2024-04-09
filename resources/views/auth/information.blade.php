@@ -41,4 +41,5 @@
 @else
 <h3 class="text-white">Parece que estas haciendo algo mal...</h3>
 </div>
+@endif
 
