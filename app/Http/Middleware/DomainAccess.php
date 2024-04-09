@@ -31,7 +31,7 @@ class DomainAccess
                 {
                     return $next($request);
                 }
-                abort(403);
+                abort(404);
             }
             if($user->rol_id === 2)
             {
@@ -47,7 +47,7 @@ class DomainAccess
                 {
                     return $next($request);
                 }
-                abort(404);
+                abort(403);
 
             }
 
