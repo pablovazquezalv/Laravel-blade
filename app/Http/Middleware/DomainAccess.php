@@ -34,8 +34,24 @@ class DomainAccess
                     return $next($request);
                 }
                 abort(403);
-
             }
+            else if($rol == 2)
+            {
+                if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.2')
+                {
+                    return $next($request);
+                }
+                abort(403);
+            }
+            else if($rol == 1)
+            {
+                if($request->getHost() == '192.168.25.2')
+                {
+                    return $next($request);
+                }
+                abort(403);
+            }
+            abort(404);
 
         
     }
