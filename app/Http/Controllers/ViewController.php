@@ -101,7 +101,7 @@ class ViewController extends Controller
 
     public function loginCodeVerifiedView()
     {
-        $userId = session('user_id');
+        $userId = session('id');
         
         $user = User::find($userId);
         dd($user);
