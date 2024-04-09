@@ -23,7 +23,7 @@ class DomainAccess
         
          
             //Hash::check($request->password,$user->password);
-            dd($user);
+            dd($user->rol_id);
             if($user->rol_id === 3)
             {
                 if($request->getHost() === 'danielypablo.tech')
