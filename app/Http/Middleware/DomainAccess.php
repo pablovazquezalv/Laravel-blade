@@ -27,8 +27,10 @@ class DomainAccess
             //dd($rol);
             if($rol == 3)
             {
+
                 if($request->getHost() == 'danielypablo.tech')
                 {
+                    dd($request->getHost());
                     return $next($request);
                 }
                 abort(403);
