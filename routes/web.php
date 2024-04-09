@@ -12,7 +12,7 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/register', [UserController::class, 'register'])->name('register.user');//funcion registro
     Route::get('/login',[ViewController::class,'loginView'])->name('login.view');//login
     Route::post('/login', [UserController::class, 'login'])->name('login.user')->middleware('loginip');//funcion login
-    Route::get('/information',[ViewController::class,'informationView'])->name('information.view')->middleware('loginip');//vista de que se le envio un correo
+    Route::get('/information',[ViewController::class,'informationView'])->name('information.view');//vista de que se le envio un correo
     Route::get('mailresend',[ViewController::class,'mailResendView'])->name('mail.resend.view');//vista de que se le reenvio un correo con exito
     Route::get('/verified',[ViewController::class,'verifiedCodeView'])->name('verified.view');//vista para verificar el codigo
     Route::get('/mailsuccess',[ViewController::class,'mailSuccessView'])->name('mail.success.view');//vista de que se le envio un correo con exito
@@ -27,7 +27,7 @@ Route::middleware(['guest'])->group(function () {
 
 Route::get('/logincode',[ViewController::class,'loginCodeVerifiedView'])->name('login.code.view');//vista de que se le envio un correo
 Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');//funcion login
-Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('auth')->middleware('status.user')->middleware('loginip');#->middleware('loginip.guest:1');//solo en produccion pagina inicio 
+Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('auth')->middleware('status.user');#->middleware('loginip');#->middleware('loginip.guest:1');//solo en produccion pagina inicio 
 Route::get('/logout',[UserController::class,'logout'])->name('logout.user')->middleware('auth');
 
 
