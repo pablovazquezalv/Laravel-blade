@@ -30,7 +30,7 @@ class DomainAccess
 
                 if($request->getHost() == 'danielypablo.tech')
                 {
-                    dd($request->getHost());
+                    //dd($request->getHost());
                     return $next($request);
                 }
                 abort(403);
