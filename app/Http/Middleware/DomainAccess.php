@@ -21,9 +21,7 @@ class DomainAccess
         
         $user = User::where('email',$request->email)->first();
         
-        if($user)
-        {
-            
+         
             //Hash::check($request->password,$user->password);
 
             if($user->rol_id === 3)
@@ -36,11 +34,7 @@ class DomainAccess
 
             }
 
-        }
-
-
-         
-        abort(403);
+        
     }
 }
         
