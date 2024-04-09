@@ -19,9 +19,7 @@ class StatusUser
           return $next($request);
         }
 //        return redirect()->route('login.view');
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+        abort(403, 'No tienes permisos para acceder a esta página');
+       
     }
 }
