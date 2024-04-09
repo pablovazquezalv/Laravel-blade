@@ -213,7 +213,7 @@ class UserController extends Controller
                 }
             }
             //coordinador
-            else if($user->rol_id == 2 && gethostname() == 'DESKTOP-2QKJ2QK')
+            else if($user->rol_id == 2)
             {
                 if($request->code == Crypt::decryptString($user->code))
                 {
