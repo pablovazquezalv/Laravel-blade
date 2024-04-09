@@ -16,13 +16,12 @@ class DomainAccess
     public function handle(Request $request, Closure $next): Response
     {
 
-        dd($request->user());
+        ///dd($request->user());
 
-        if( $request->user()->rol_id === 1)
-        {
-            
-            return $next($request);
-        } 
+        
+        $user = User::where('email',$request->email)->first();
+        dd($user);
+         
         abort(403);
     }
 }
