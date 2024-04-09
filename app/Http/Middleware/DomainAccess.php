@@ -6,6 +6,9 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
+
+use function Laravel\Prompts\alert;
+
 class DomainAccess
 {
     /**
@@ -15,16 +18,11 @@ class DomainAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-        ///dd($request->user());
-
         
         $user = User::where('email',$request->email)->first();
-        
-         
+                 
           if($user)
           {
-              //Hash::check($request->password,$user->password);
               $rol = $user->rol_id;
               //dd($rol);
               if($rol == 3)
@@ -32,12 +30,13 @@ class DomainAccess
   
                   if($request->getHost() == 'danielypablo.tech')
                   {
-                      //dd($request->getHost());
                       return $next($request);
                   }
                   $request->session()->invalidate();
                   $request->session()->regenerateToken();
-                  return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+                  alert('Su cuenta no ha sido verificada');
+                  return redirect()->route('login.view');
+                  
               }
               else if($rol == 2)
               {
