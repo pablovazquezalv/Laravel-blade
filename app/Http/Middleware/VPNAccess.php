@@ -18,8 +18,10 @@ class VPNAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = $request->user()->id;
 
+        //obtener el usuario autenticado
+        $user = Auth::user();
+        
         dd($user);
         if($user)
         {
