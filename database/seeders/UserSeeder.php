@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'coordinator',
             'last_name' => 'laravel',
-            'email' => 'coordinatorlaravel@gmail.com',
+            'email' => 'exalariacrew.sma@gmail.com',
             'phone_number' => '1234567890',
             'code' =>  Crypt::encryptString('1010'),
             'password' => bcrypt('123456789'),
