@@ -27,6 +27,7 @@ class DomainAccess
 
             if($user->rol_id === 1)
             {
+                dd($request->getHost());
                 if($request->getHost() == '192.168.25.2')
                 {
                     return $next($request);
