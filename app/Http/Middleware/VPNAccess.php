@@ -19,10 +19,9 @@ class VPNAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-
+        dd($request);
         $user = $request->user();
 
-        dd($user);
         if ($request->ip() == '192.168.1.13' && $user->role_id == 1) 
         {
             return $next($request);
