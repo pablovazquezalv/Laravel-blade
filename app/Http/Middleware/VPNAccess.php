@@ -58,10 +58,7 @@ class VPNAccess
             abort(403, 'No tiene permisos para acceder a esta página');
         }
     }
-    else
-    {
-        return redirect()->route('login.view');
-    }
+    abort(403, 'No tiene permisos para acceder a esta página');
     
 }
 }
