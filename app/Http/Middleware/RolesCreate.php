@@ -35,7 +35,7 @@ class RolesCreate
         }
         return $next($request);
         }
-        return alert('No tiene permisos para acceder a esta página');
+        return redirect()->route('login.view');
 
     }
 }
