@@ -11,7 +11,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/register',[ViewController::class,"registerView"])->name('register.view');//registro
     Route::post('/register', [UserController::class, 'register'])->name('register.user');//funcion registro
     Route::get('/login',[ViewController::class,'loginView'])->name('login.view');//login
-    Route::post('/login', [UserController::class, 'login'])->name('login.user')->middleware('vpn.access');//funcion login
+    Route::post('/login', [UserController::class, 'login'])->name('login.user');//funcion login
     
     Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');
     Route::get('/logincode',[ViewController::class,'loginCodeVerifiedView'])->name('login.code.view');#->middleware('loginip');
@@ -29,7 +29,7 @@ Route::middleware(['guest'])->group(function () {
 
 //vista de que se le envio un correo
 //Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');#->middleware('status.user');//funcion login
-Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('auth');#->middleware('status.user');#->middleware('auth');#->middleware('loginip');
+Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('auth')->middleware('vpn.access');#->middleware('status.user');#->middleware('auth');#->middleware('loginip');
 Route::get('/logout',[UserController::class,'logout'])->name('logout.user')->middleware('auth');//cerrar sesion
 
 //USUARIOS
