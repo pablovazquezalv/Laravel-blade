@@ -24,8 +24,7 @@ class VPNAccess
 
             $rol = $user->rol_id;
             //dd($rol);
-            dd(request()->getHost());
-            if($rol == 1 && $request->ip() == '192.168.25.13')
+            if($rol == 1 && request()->getHost() == '192.168.25.2')
             {
                 
                return $next($request);             
