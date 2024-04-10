@@ -20,8 +20,10 @@ class VPNAccess
     {
 
         //OBTENER EL USUARIO AUTENTICADO
-
+        $session = $request->session();
+        dd($session);
         $user = Auth::user();
+
          if($user)
          {
 

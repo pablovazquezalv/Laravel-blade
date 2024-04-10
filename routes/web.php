@@ -30,13 +30,10 @@ Route::middleware(['guest'])->group(function () {
 //vista de que se le envio un correo
 //Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');#->middleware('status.user');//funcion login
 Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('auth')->middleware('vpn.access')->middleware('status.user');#->middleware('auth');#->middleware('loginip');
-
-
 Route::get('/logout',[UserController::class,'logout'])->name('logout.user')->middleware('auth')->middleware('vpn.access');//cerrar sesion
 
-
 //USUARIOS
-Route::middleware(['roles.create:1','status.user','vpn.access'])->group(function () {
+Route::middleware(['roles.create:1','status.user','vpn.access','auth'])->group(function () {
     Route::get('/users', [ViewController::class, 'UserEditView'])->name('users.view');
     Route::post('/changeRol', [UserController::class, 'changeRol'])->name('change.rol')->where('id', '[0-9]+');
     Route::post('/changeStatus/{id}', [UserController::class, 'changeStatus'])->name('change.status')->where('id', '[0-9]+');

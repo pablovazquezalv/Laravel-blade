@@ -21,7 +21,7 @@ class RolesCreate
     {
         
         $user = Auth::user();
-
+        
         if($user)
         {
             
