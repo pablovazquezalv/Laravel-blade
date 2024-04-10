@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,10 @@ class VPNAccess
 
         //OBTENER EL USUARIO AUTENTICADO
         $session = $request->session();
-        dd($session);
+        
+       $rol = $session->user_id;
+       dd($rol);
+        $user = User::find();
         $user = Auth::user();
 
          if($user)
