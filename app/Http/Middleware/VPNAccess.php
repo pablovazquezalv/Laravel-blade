@@ -22,54 +22,39 @@ class VPNAccess
         //OBTENER EL USUARIO AUTENTICADO
 
         $user = Auth::user();
-
-        dd($user->rol_id);
-
-        if (Auth::check()) 
-            {
-            $user = Auth::user();
+        $rol = $user->rol_id;
             
-            $rol = $user->rol_id;
-            
-            if($rol == 3)
+        if($rol == 3)
+        {
+            if($request->getHost() == 'danielypablo.tech')
             {
-                if($request->getHost() == 'danielypablo.tech')
-                {
-                    return $next($request);
-                }
-                
-                $request->session()->invalidate();
-                abort(403, 'No tiene permisos para acceder a esta página');
-                
+                return $next($request);
             }
-            else if($rol == 2)
+            
+            $request->session()->invalidate();
+            abort(403, 'No tiene permisos para acceder a esta página');
+            
+        }
+        else if($rol == 2)
+        {
+          
+            if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.2')
             {
               
-                if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.2')
-                {
-                  
-                    return $next($request);
-                }
-                $request->session()->invalidate();
-                abort(403, 'No tiene permisos para acceder a esta página');
+                return $next($request);
             }
-            else if($rol == 1)
-            {
-                if($request->getHost() == '192.168.25.2')
-                {
-                    return $next($request);
-                }
-                $request->session()->invalidate();
-                abort(403, 'No tiene permisos para acceder a esta página');
-            }
-
-        } else
-         {
-            alert('No hay usuario autenticado');
-
-            // Mostrar mensaje si no hay usuario autenticado
+            $request->session()->invalidate();
+            abort(403, 'No tiene permisos para acceder a esta página');
         }
-    
+        else if($rol == 1)
+        {
+            if($request->getHost() == '192.168.25.2')
+            {
+                return $next($request);
+            }
+            $request->session()->invalidate();
+            abort(403, 'No tiene permisos para acceder a esta página');
+        }
     
 }
 }
