@@ -22,7 +22,7 @@ class RolesCreate
 
         
         $userRole = $user->rol_id;
-        dd($userRole);
+        
         //        $userRole = $request->user()->rol_id;
 
         // Verificar si el rol del usuario está permitido
