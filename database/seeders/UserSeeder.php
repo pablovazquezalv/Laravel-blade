@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'coordinator',
             'last_name' => 'exalariacrew',
-            'email' => 'exalariacrew.sma@gmail.com',
+            'email' => 'pabloalvaradovazquez10@hotmail.com',
             'phone_number' => '1234567890',
             'code' =>  Crypt::encryptString('1030'),
             'password' => bcrypt('123456789'),
