@@ -29,7 +29,7 @@ Route::middleware(['guest'])->group(function () {
 
 //vista de que se le envio un correo
 //Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');#->middleware('status.user');//funcion login
-Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('vpn.access');#  ->middleware('auth')#->middleware('status.user');#->middleware('loginip');
+Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('vpn.access')->middleware('auth')->middleware('status.user');#->middleware('loginip');
 
 
 Route::get('/logout',[UserController::class,'logout'])->name('logout.user')->middleware('auth');
