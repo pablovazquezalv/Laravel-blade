@@ -28,21 +28,9 @@ class StatusUser
       }
       else
       {
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
         return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
       }
-
-
-
-
-    //     if ($request->user()->statusActive()) {
-    //       return $next($request);
-    //     }
-//        return redirect()->route('login.view');
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+      //rediregir a la vista de que su cuenta no ha sido verificada
+      abort(403, 'No tiene permisos para acceder a esta página');
     }
 }
