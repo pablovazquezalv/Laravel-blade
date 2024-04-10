@@ -244,6 +244,9 @@ class UserController extends Controller
                         $user->code = Crypt::encryptString(rand(1000,9999));
                         $user->save();
                         Auth::login($user);
+                        Auth::user()->rol_id;
+                        session(['user_id' => $user->id]);
+                        return redirect('/welcome');
 
                         }
                     else
