@@ -201,7 +201,7 @@ class UserController extends Controller
                     
                     $user->code = Crypt::encryptString(rand(1000,9999));
                     $user->save();
-                    Auth::login($user);
+                    Auth::login($user,true);
                     return redirect('/welcome');
                 }
                 else
