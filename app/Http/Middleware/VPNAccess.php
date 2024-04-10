@@ -23,7 +23,7 @@ class VPNAccess
 
         $user = Auth::user();
 
-        dd($user);
+        dd($user->rol_id);
 
         if (Auth::check()) 
             {
