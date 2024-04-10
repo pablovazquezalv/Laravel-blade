@@ -21,7 +21,7 @@ class StatusUser
       
 //      dd($user->status);
       $status = $user->status;
-      dd($status);    
+         
       if($status == true)
       {
         return $next($request);
