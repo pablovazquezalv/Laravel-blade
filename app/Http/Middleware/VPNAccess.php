@@ -58,7 +58,7 @@ class VPNAccess
             abort(403, 'No tiene permisos para acceder a esta página');
         }
     }
-    abort(403, 'No tiene permisos para acceder a esta página');
+    abort(403, 'No se encontro el usuario middleware vpn access');
     
 }
 }
