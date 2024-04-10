@@ -21,10 +21,8 @@ class RolesCreate
     {
         
         $user = Auth::user();
-
-        if($user)
-        {
-            
+        
+      
         $userRole = $user->rol_id;
         
         //        $userRole = $request->user()->rol_id;
@@ -34,8 +32,6 @@ class RolesCreate
             return redirect()->route('welcome.view'); // Redirigir a la página de bienvenida o a donde sea necesario
         }
         return $next($request);
-        }
-        return redirect()->route('login.view');
-
+        
     }
 }
