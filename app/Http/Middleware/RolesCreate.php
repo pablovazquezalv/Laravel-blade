@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
+use function Laravel\Prompts\alert;
+
 class RolesCreate
 {
     /**
@@ -33,6 +35,7 @@ class RolesCreate
         }
         return $next($request);
         }
-        
+        return alert('No tiene permisos para acceder a esta página');
+
     }
 }
