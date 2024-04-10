@@ -22,8 +22,41 @@ class VPNAccess
             $user = Auth::user();
             
             $rol = $user->rol_id;
-            dd($rol);
-        } else {
+            
+            if($rol == 3)
+            {
+                if($request->getHost() == 'danielypablo.tech')
+                {
+                    return $next($request);
+                }
+                
+                $request->session()->invalidate();
+                abort(403, 'No tiene permisos para acceder a esta página');
+                
+            }
+            else if($rol == 2)
+            {
+              
+                if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.2')
+                {
+                  
+                    return $next($request);
+                }
+                $request->session()->invalidate();
+                abort(403, 'No tiene permisos para acceder a esta página');
+            }
+            else if($rol == 1)
+            {
+                if($request->getHost() == '192.168.25.2')
+                {
+                    return $next($request);
+                }
+                $request->session()->invalidate();
+                abort(403, 'No tiene permisos para acceder a esta página');
+            }
+
+        } else
+         {
             dd('No hay usuario autenticado'); // Mostrar mensaje si no hay usuario autenticado
         }
     
