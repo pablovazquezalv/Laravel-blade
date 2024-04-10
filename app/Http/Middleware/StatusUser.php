@@ -19,7 +19,19 @@ class StatusUser
       $user = Auth::user();
       
       
-      dd($user);
+      //dd($user);
+      $status = $user->status;
+      
+      if($status == true)
+      {
+        return $next($request);
+      }
+      else
+      {
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+      }
 
 
 
