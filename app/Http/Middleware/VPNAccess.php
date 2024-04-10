@@ -19,8 +19,10 @@ class VPNAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-        dd($request);
-        $user = $request->user();
+        //obtener la variable de sesion
+        $user = Auth::user();
+
+        dd($user);
 
         if ($request->ip() == '192.168.1.13' && $user->role_id == 1) 
         {

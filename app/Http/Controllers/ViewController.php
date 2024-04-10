@@ -31,7 +31,6 @@ class ViewController extends Controller
     public function welcomeView()
     {
 
-        Auth::user();
         $tickets =  DB::table('tickets')
         ->join('users', 'tickets.user_id', '=', 'users.id')
         ->select('tickets.id','tickets.title', 'tickets.description', 'tickets.priority', 'users.name', 'users.last_name', 'tickets.status', 'tickets.created_at')
