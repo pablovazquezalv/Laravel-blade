@@ -21,7 +21,8 @@ class VPNAccess
         if (Auth::check()) {
             $user = Auth::user();
             
-            dd($user);
+            $rol = $user->rol_id;
+            dd($rol);
         } else {
             dd('No hay usuario autenticado'); // Mostrar mensaje si no hay usuario autenticado
         }
