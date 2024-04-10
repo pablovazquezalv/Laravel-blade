@@ -24,7 +24,7 @@ class VPNAccess
         $user = Auth::user();
         
         $A =$request->user();
-        dd($A); 
+        dd($user); 
         $rol= 4;
         if($rol == 3)
         {
