@@ -19,7 +19,7 @@ class StatusUser
       $user = Auth::user();
       
       
-      //dd($user);
+      dd($user);
       $status = $user->status;
       
       if($status == true)
