@@ -33,7 +33,7 @@ class VPNAccess
             {
                 return $next($request);
             }
-            else if($rol == 3 && $request->ip() != '192.168.25.13')
+            else if($rol == 3 && request()->getHost() == '192.168.25.2')
             {
                 return $next($request);
             }
