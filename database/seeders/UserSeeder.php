@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         //puede crear tickets, asignar tickets a tecnicos, ver tickets, editar tickets, eliminar tickets
         //ver roles y usuarios, editar roles y usuarios
         DB::table('users')->insert([
-            'name' => 'admin',
+            'name' => 'admin1',
             'last_name' => 'laravel',
             'email' => 'anderpiter07@gmail.com',
             'phone_number' => '1234567890',
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
         //coordinator
         //puede  crear tickets, asignar tickets a tecnicos, ver tickets, editar tickets, eliminar tickets
         DB::table('users')->insert([
-            'name' => 'coordinator',
+            'name' => 'coordinator2',
             'last_name' => 'exalariacrew',
             'email' => 'pabloalvaradovazquez10@hotmail.com',
             'phone_number' => '1234567890',
@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
 
         //solo ver tickets
         DB::table('users')->insert([
-            'name' => 'guest',
+            'name' => 'guest3',
             'last_name' => 'pablo',
             'email' => 'pabloalvaradovazquez10@gmail.com',
             'phone_number' => '1234567890',
