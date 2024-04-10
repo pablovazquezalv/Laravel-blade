@@ -244,8 +244,8 @@ class UserController extends Controller
                         $user->code = Crypt::encryptString(rand(1000,9999));
                         $user->save();
                         Auth::login($user);
-                        return redirect('/welcome');
-                    }
+
+                        }
                     else
                     {
                         $validator->errors()->add('code', 'Error al  el codigo');
