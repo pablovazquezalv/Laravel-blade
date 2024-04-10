@@ -33,7 +33,7 @@ Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view
 Route::get('/logout',[UserController::class,'logout'])->name('logout.user')->middleware('auth');//cerrar sesion
 
 //USUARIOS
-Route::middleware(['roles.create:1','auth'])->group(function () {
+Route::middleware(['roles.create:1','auth','vpn.access'])->group(function () {
     Route::get('/users', [ViewController::class, 'UserEditView'])->name('users.view');
     Route::post('/changeRol', [UserController::class, 'changeRol'])->name('change.rol')->where('id', '[0-9]+');
     Route::post('/changeStatus/{id}', [UserController::class, 'changeStatus'])->name('change.status')->where('id', '[0-9]+');
