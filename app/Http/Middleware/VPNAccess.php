@@ -24,7 +24,8 @@ class VPNAccess
         // Auth::user()->rol_id;
         //     $rol = $user->rol_id;
             //dd($rol);
-
+            $user = Auth::user();
+            dd($user);
             $user = session('user_id');
             $user = User::find($user);
             dd($user);
