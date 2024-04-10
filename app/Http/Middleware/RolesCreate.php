@@ -19,7 +19,9 @@ class RolesCreate
     {
         
         $user = Auth::user();
-        $userRole= $user->rol_id;
+
+        dd($user);
+        $userRole = $user->rol_id;
         //        $userRole = $request->user()->rol_id;
 
         // Verificar si el rol del usuario está permitido
