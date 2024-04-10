@@ -25,7 +25,7 @@ class VPNAccess
          if($user)
          {
 
-        $rol = $user->rol_id;
+            $rol = $user->rol_id;
         if($rol == 3)
         {
             if($request->getHost() == 'danielypablo.tech')
@@ -42,7 +42,6 @@ class VPNAccess
           
             if($request->getHost() == 'danielypablo.tech' || $request->getHost() == '192.168.25.2')
             {
-              
                 return $next($request);
             }
            // $request->session()->invalidate();
