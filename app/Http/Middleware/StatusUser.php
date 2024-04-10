@@ -18,7 +18,9 @@ class StatusUser
     {
       $user = Auth::user();
       
-      
+      if($user)
+      {
+        
 //      dd($user->status);
       $status = $user->status;
          
@@ -28,9 +30,9 @@ class StatusUser
       }
       else
       {
-        abort(403, 'No tiene permisos para acceder a esta página');
+        abort(403, 'no tienes acceso status');
       }
-      //rediregir a la vista de que su cuenta no ha sido verificada
-      abort(403, 'No tiene permisos para acceder a esta página');
+      }
+      abort(403, 'no hay usuario middleware status user');
     }
 }
