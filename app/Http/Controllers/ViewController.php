@@ -30,14 +30,14 @@ class ViewController extends Controller
     //Visualizacion de la vista de bienvenida
     public function welcomeView()
     {
-        $user = Auth::user();
+//        $user = Auth::user();
 
         $tickets =  DB::table('tickets')
         ->join('users', 'tickets.user_id', '=', 'users.id')
         ->select('tickets.id','tickets.title', 'tickets.description', 'tickets.priority', 'users.name', 'users.last_name', 'tickets.status', 'tickets.created_at')
         ->get();
     
-        return view('welcome', compact('user', 'tickets'));
+        return view('welcome', compact('tickets'));
     }
 
     //Visualizacion de la vista de informacion

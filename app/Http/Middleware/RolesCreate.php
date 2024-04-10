@@ -8,8 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-use function Laravel\Prompts\alert;
-
 class RolesCreate
 {
     /**
@@ -19,38 +17,23 @@ class RolesCreate
      */
     public function handle(Request $request, Closure $next,...$allowedRoles): Response
     {
-
-        $user = $request->user();
-
-        $rol = $user->rol_id;
-        if (!in_array($rol, $allowedRoles)) 
-        {
-            return redirect()->route('welcome.view');
-
-            // Redirigir a la página de bienvenida o a donde sea necesario
-            
-        }
-            return $next($request);
-
-        }
-    }
-    
-
-
-        // $user = Auth::user();
-
-        // if($user)
-        // {
-            
-        // $userRole = $user->rol_id;
         
-        // //        $userRole = $request->user()->rol_id;
+        $user = Auth::user();
 
-        // // Verificar si el rol del usuario está permitido
-        // if (!in_array($userRole, $allowedRoles)) {
-        //     return redirect()->route('welcome.view'); // Redirigir a la página de bienvenida o a donde sea necesario
-        // }
-        // return $next($request);
-        // }
-        // return redirect()->route('login.view');
+        if($user)
+        {
+            
+        $userRole = $user->rol_id;
+        
+        //        $userRole = $request->user()->rol_id;
 
+        // Verificar si el rol del usuario está permitido
+        if (!in_array($userRole, $allowedRoles)) {
+            return redirect()->route('welcome.view'); // Redirigir a la página de bienvenida o a donde sea necesario
+        }
+        return $next($request);
+        }
+        return redirect()->route('app.index');
+
+    }
+}

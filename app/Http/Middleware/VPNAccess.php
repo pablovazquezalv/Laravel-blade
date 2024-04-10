@@ -33,6 +33,7 @@ class VPNAccess
             }
             else if(Auth::user()->rol_id == 2)
             {
+                dd(Auth::user()->rol_id);
                 return $next($request);
             }
             else if(Auth::user()->rol_id == 3 && request()->getHost() != '192.168.25.2')
