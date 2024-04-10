@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class StatusUser
 {
@@ -15,9 +16,17 @@ class StatusUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->statusActive()) {
-          return $next($request);
-        }
+      $user = Auth::user();
+      
+      
+      dd($user);
+
+
+
+
+    //     if ($request->user()->statusActive()) {
+    //       return $next($request);
+    //     }
 //        return redirect()->route('login.view');
 
         $request->session()->invalidate();

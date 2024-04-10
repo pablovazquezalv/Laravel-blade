@@ -31,7 +31,7 @@ class VPNAccess
                 return $next($request);
             }
             
-            $request->session()->invalidate();
+           // $request->session()->invalidate();
             abort(403, 'No tiene permisos para acceder a esta página');
             
         }
@@ -43,7 +43,7 @@ class VPNAccess
               
                 return $next($request);
             }
-            $request->session()->invalidate();
+           // $request->session()->invalidate();
             abort(403, 'No tiene permisos para acceder a esta página');
         }
         else if($rol == 1)
@@ -52,7 +52,7 @@ class VPNAccess
             {
                 return $next($request);
             }
-            $request->session()->invalidate();
+            //$request->session()->invalidate();
             abort(403, 'No tiene permisos para acceder a esta página');
         }
     
