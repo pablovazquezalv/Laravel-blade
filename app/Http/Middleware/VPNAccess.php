@@ -23,7 +23,7 @@ class VPNAccess
         //OBTENER EL USUARIO AUTENTICADO
         $session = $request->session();
         
-       $rol = $session->user_id;
+       $rol = $request->session()->user_id;
        dd($rol);
         $user = User::find();
         $user = Auth::user();
