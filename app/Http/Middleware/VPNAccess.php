@@ -23,7 +23,8 @@ class VPNAccess
         $user = Auth::user();
 
             $rol = $user->rol_id;
-            dd($rol);
+            //dd($rol);
+            dd(request()->ip());
             if($rol == 1 && $request->ip() == '192.168.25.13')
             {
                 
