@@ -11,7 +11,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/register',[ViewController::class,"registerView"])->name('register.view');//registro
     Route::post('/register', [UserController::class, 'register'])->name('register.user');//funcion registro
     Route::get('/login',[ViewController::class,'loginView'])->name('login.view');//login
-    Route::post('/login', [UserController::class, 'login'])->name('login.user')->middleware('loginip');//funcion login
+    Route::post('/login', [UserController::class, 'login'])->name('login.user')->middleware('vpn.access');//funcion login
     
     Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');
     Route::get('/logincode',[ViewController::class,'loginCodeVerifiedView'])->name('login.code.view');#->middleware('loginip');
@@ -29,17 +29,17 @@ Route::middleware(['guest'])->group(function () {
 
 //vista de que se le envio un correo
 //Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');#->middleware('status.user');//funcion login
-Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('auth')->middleware('vpn.access')->middleware('status.user');#->middleware('auth');#->middleware('loginip');
+Route::get('/welcome',[ViewController::class,'welcomeView'])->name('welcome.view')->middleware('auth')->middleware('vpn.access');#->middleware('status.user');#->middleware('auth');#->middleware('loginip');
 Route::get('/logout',[UserController::class,'logout'])->name('logout.user')->middleware('auth')->middleware('vpn.access');//cerrar sesion
 
 //USUARIOS
-Route::middleware(['roles.create:1','status.user','vpn.access','auth'])->group(function () {
+Route::middleware(['roles.create:1','vpn.access','auth'])->group(function () {
     Route::get('/users', [ViewController::class, 'UserEditView'])->name('users.view');
     Route::post('/changeRol', [UserController::class, 'changeRol'])->name('change.rol')->where('id', '[0-9]+');
     Route::post('/changeStatus/{id}', [UserController::class, 'changeStatus'])->name('change.status')->where('id', '[0-9]+');
 });
 //TICKETS
-Route::middleware(['roles.create:1,2','status.user','vpn.access'])->group(function () {
+Route::middleware(['roles.create:1,2','auth','vpn.access'])->group(function () {
     Route::get('/tickets', [ViewController::class, 'TicketCreateView'])->name('tickets.create.view');
     Route::post('/tickets', [TicketController::class, 'createTicket'])->name('tickets.create');
     Route::get('/ticket/{id}', [ViewController::class, 'TicketEditView'])->name('tickets.edit.view')->where('id', '[0-9]+');

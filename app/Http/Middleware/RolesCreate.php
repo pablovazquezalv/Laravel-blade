@@ -19,23 +19,38 @@ class RolesCreate
      */
     public function handle(Request $request, Closure $next,...$allowedRoles): Response
     {
-        
-        $user = Auth::user();
-        
-        if($user)
+
+        $user = $request->user();
+
+        $rol = $user->rol_id;
+        if (!in_array($rol, $allowedRoles)) 
         {
+            return redirect()->route('welcome.view');
+
+            // Redirigir a la página de bienvenida o a donde sea necesario
             
-        $userRole = $user->rol_id;
-        
-        //        $userRole = $request->user()->rol_id;
-
-        // Verificar si el rol del usuario está permitido
-        if (!in_array($userRole, $allowedRoles)) {
-            return redirect()->route('welcome.view'); // Redirigir a la página de bienvenida o a donde sea necesario
         }
-        return $next($request);
-        }
-        return redirect()->route('login.view');
+            return $next($request);
 
+        }
     }
-}
+    
+
+
+        // $user = Auth::user();
+
+        // if($user)
+        // {
+            
+        // $userRole = $user->rol_id;
+        
+        // //        $userRole = $request->user()->rol_id;
+
+        // // Verificar si el rol del usuario está permitido
+        // if (!in_array($userRole, $allowedRoles)) {
+        //     return redirect()->route('welcome.view'); // Redirigir a la página de bienvenida o a donde sea necesario
+        // }
+        // return $next($request);
+        // }
+        // return redirect()->route('login.view');
+
