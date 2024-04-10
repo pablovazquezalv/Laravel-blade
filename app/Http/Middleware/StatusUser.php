@@ -19,9 +19,9 @@ class StatusUser
       $user = Auth::user();
       
       
-      dd($user->status);
+//      dd($user->status);
       $status = $user->status;
-      
+      dd($status);    
       if($status == true)
       {
         return $next($request);
