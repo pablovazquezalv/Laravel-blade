@@ -22,19 +22,21 @@ class VPNAccess
         //obtener la variable de sesion
         $user = Auth::user();
 
-        dd($user);
-
-        if ($request->ip() == '192.168.1.13' && $user->role_id == 1) 
-        {
-            return $next($request);
-        }
-         else if($request->ip() =='192.168.1.13' && $user->role_id == 2)
-         {
-            return $next($request);
-         }
-         abort(403, 'No tiene permisos para acceder a esta página');
-        
-         
+            $rol = $user->rol_id;
+            if($rol == 1 && $request->ip() == '192.168.25.13')
+            {
+                
+               return $next($request);             
+            }
+            else if($rol == 2)
+            {
+                return $next($request);
+            }
+            else if($rol == 3 && $request->ip() != '192.168.25.13')
+            {
+                return $next($request);
+            }
+            return abort(403, 'No tiene permisos para acceder a esta página');
     
     }
 }
