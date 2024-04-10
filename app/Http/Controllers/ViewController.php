@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Ticket;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ViewController extends Controller
@@ -29,6 +30,8 @@ class ViewController extends Controller
     //Visualizacion de la vista de bienvenida
     public function welcomeView()
     {
+
+        Auth::user();
         $tickets =  DB::table('tickets')
         ->join('users', 'tickets.user_id', '=', 'users.id')
         ->select('tickets.id','tickets.title', 'tickets.description', 'tickets.priority', 'users.name', 'users.last_name', 'tickets.status', 'tickets.created_at')
