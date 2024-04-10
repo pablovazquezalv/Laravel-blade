@@ -28,7 +28,7 @@ class StatusUser
       }
       else
       {
-        return redirect()->route('login.view')->with('status','Su cuenta no ha sido verificada');
+        abort(403, 'No tiene permisos para acceder a esta página');
       }
       //rediregir a la vista de que su cuenta no ha sido verificada
       abort(403, 'No tiene permisos para acceder a esta página');
