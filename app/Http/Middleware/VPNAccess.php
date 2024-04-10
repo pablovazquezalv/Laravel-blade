@@ -18,6 +18,13 @@ class VPNAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
+
+        //OBTENER EL USUARIO AUTENTICADO
+
+        $user = Auth::user();
+
+        dd($user);
+
         if (Auth::check()) 
             {
             $user = Auth::user();
@@ -58,7 +65,9 @@ class VPNAccess
 
         } else
          {
-            dd('No hay usuario autenticado'); // Mostrar mensaje si no hay usuario autenticado
+            alert('No hay usuario autenticado');
+
+            // Mostrar mensaje si no hay usuario autenticado
         }
     
     
