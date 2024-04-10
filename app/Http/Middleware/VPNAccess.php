@@ -22,8 +22,10 @@ class VPNAccess
         //OBTENER EL USUARIO AUTENTICADO
 
         $user = Auth::user();
-         
-        $rol= $user->rol_id;
+         if($user)
+         {
+
+        $rol = $user->rol_id;
         if($rol == 3)
         {
             if($request->getHost() == 'danielypablo.tech')
@@ -55,6 +57,11 @@ class VPNAccess
             //$request->session()->invalidate();
             abort(403, 'No tiene permisos para acceder a esta página');
         }
+    }
+    else
+    {
+        return redirect()->route('login.view');
+    }
     
 }
 }
