@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class RolesCreate
 {
@@ -16,7 +17,10 @@ class RolesCreate
      */
     public function handle(Request $request, Closure $next,...$allowedRoles): Response
     {
-        $userRole = $request->user()->rol_id;
+        
+        $user = Auth::user();
+        $userRole= $user->rol_id;
+        //        $userRole = $request->user()->rol_id;
 
         // Verificar si el rol del usuario está permitido
         if (!in_array($userRole, $allowedRoles)) {
