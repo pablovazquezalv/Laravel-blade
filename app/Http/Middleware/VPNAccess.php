@@ -22,8 +22,10 @@ class VPNAccess
         //OBTENER EL USUARIO AUTENTICADO
 
         $user = Auth::user();
-        $rol = $user->rol_id;
-            
+        
+        $A =$request->user();
+        dd($A); 
+        $rol= 4;
         if($rol == 3)
         {
             if($request->getHost() == 'danielypablo.tech')
