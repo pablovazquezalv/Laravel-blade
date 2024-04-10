@@ -22,23 +22,22 @@ class VPNAccess
 
         $user = $request->user();
 
-        if ($request->ip() !='192.168.1.13' && $user->role_id == 1) {
-
-            Auth::logout(); 
-             return redirect()->route('login.view');
-         }
-         else if($request->ip() !='192.168.1.13' && $user->role_id == 2)
+        if ($request->ip() == '192.168.1.13' && $user->role_id == 1) 
+        {
+            return $next($request);
+        }
+         else if($request->ip() =='192.168.1.13' && $user->role_id == 2)
          {
-            Auth::logout(); 
-            return redirect()->route('login.view');
+            return $next($request);
          }
-         return $next($request);
-         }
-         
-        
+         return redirect()->route('login.view');
 
+        
+         
     
+    }
 }
+        
 
     //     //OBTENER EL USUARIO AUTENTICADO
     //     $session = $request->session();
