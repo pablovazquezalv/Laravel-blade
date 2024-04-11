@@ -31,8 +31,8 @@ class StatusUser
       }
       else
       {
-        //mandar a login
-        return redirect('/login');
+        //mandar a login  
+        abort(404);
       }
       }
       abort(403, 'no hay usuario middleware status user');
