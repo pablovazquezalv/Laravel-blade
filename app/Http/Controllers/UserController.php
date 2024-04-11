@@ -18,6 +18,7 @@ use App\Jobs\SendEmail;
 use Illuminate\Support\Facades\Crypt;
 use Exception;
 use App\Mail\CodeLogin;
+use App\Mail\UserLogin;
 use App\Models\CodeAccess;
 use App\Models\CodesAccess;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
@@ -108,8 +109,8 @@ class UserController extends Controller
 
 
                   
-        SendEmail::dispatch($user,$url)->delay(now()->addSeconds(10))->onQueue('emails')->onConnection('database');
-                
+        //SendEmail::dispatch($user,$url)->delay(now()->addSeconds(10))->onQueue('emails')->onConnection('database');
+        Mail::to($user->email)->send(new UserLogin($user,$url));       
                  
         if($user->save())
         {
