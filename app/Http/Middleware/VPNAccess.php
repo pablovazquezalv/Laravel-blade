@@ -22,11 +22,6 @@ class VPNAccess
         
             //agarrar el usuario de la sesion
             $user = User::where('code',$request->code)->first();
-
-
-            
-
-            dd($user);
             
             
             if($user->rol_id == 1 && request()->getHost() == '192.168.25.2')
