@@ -156,7 +156,7 @@ class UserController extends Controller
         }
 
         $user = User::where('email',$request->email)->first();
-
+        dd($user);
         if($user)
         {
             if(Hash::check($request->password,$user->password))
