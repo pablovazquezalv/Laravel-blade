@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class StatusUser
 {
@@ -16,7 +17,8 @@ class StatusUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-      $user = Auth::user();
+      $user = User::where('email',$request->email)->first(); 
+            
       
       if($user)
       {
@@ -30,7 +32,8 @@ class StatusUser
       }
       else
       {
-        abort(403, 'no tienes acceso ');
+        //mandar a login
+        return redirect('/login');
       }
       }
       abort(403, 'no hay usuario middleware status user');
