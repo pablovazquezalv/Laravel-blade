@@ -19,23 +19,20 @@ class VPNAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-        //obtener la variable de sesion
-        // $user = Auth::user();
-        // Auth::user()->rol_id;
-        //     $rol = $user->rol_id;
-            //dd($rol);
+        
             
+            $user = User::where('email',$request->email)->first(); 
          
-            if(Auth::user()->rol_id == 1 && request()->getHost() == '192.168.25.2')
+            if($user->rol_id == 1 && request()->getHost() == '192.168.25.2')
             {
                 
                return $next($request);             
             }
-            else if(Auth::user()->rol_id == 2)
+            else if($user->rol_id  == 2)
             {
                 return $next($request);
             }
-            else if(Auth::user()->rol_id == 3 && request()->getHost() != '192.168.25.2')
+            else if($user->rol_id  == 3 && request()->getHost() != '192.168.25.2')
             {
                 return $next($request);
             }
