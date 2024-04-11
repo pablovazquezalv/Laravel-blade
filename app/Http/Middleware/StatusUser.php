@@ -30,7 +30,7 @@ class StatusUser
       }
       else
       {
-        abort(403, 'no tienes acceso status');
+        abort(403, 'no tienes acceso ');
       }
       }
       abort(403, 'no hay usuario middleware status user');
