@@ -78,6 +78,8 @@ class ServiceController extends Controller
             ]);   
             //update email_verified_at
             $user->email_verified_at = now();
+            //Actualizr status a true
+            $user->status = 1;
 
             $user->save();
 
