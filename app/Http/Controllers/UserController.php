@@ -92,10 +92,8 @@ class UserController extends Controller
             $user->code = Crypt::encryptString(rand(1000,9999));
             $user->public_key = Crypt::encryptString(rand(1000,9999));
 
-            $url = URL::temporarySignedRoute('send.whatsapp', now()->addMinutes(15), ['id' => $user->id,'rol_id' => $user->rol_id,'phone_number' => $user->phone_number,'last_name'=>$user->last_name ]);
-             
-            SendEmail::dispatch($user,$url)->delay(now()->addSeconds(10))->onQueue('emails')->onConnection('database');
-                
+            
+           // Mail::to($user->email)->send(new CodeLogin($user,39393));
            
         }
         else
@@ -106,11 +104,11 @@ class UserController extends Controller
         
         $user->save();
 
-        //$url = URL::temporarySignedRoute('send.whatsapp', now()->addMinutes(15), ['id' => $user->id,'rol_id' => $user->rol_id,'phone_number' => $user->phone_number,'last_name'=>$user->last_name ]);
+        $url = URL::temporarySignedRoute('send.whatsapp', now()->addMinutes(15), ['id' => $user->id,'rol_id' => $user->rol_id,'phone_number' => $user->phone_number,'last_name'=>$user->last_name ]);
 
 
                   
-        //SendEmail::dispatch($user,$url)->delay(now()->addSeconds(10))->onQueue('emails')->onConnection('database');
+        SendEmail::dispatch($user,$url)->delay(now()->addSeconds(10))->onQueue('emails')->onConnection('database');
                 
                  
         if($user->save())
