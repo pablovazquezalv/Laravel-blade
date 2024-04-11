@@ -14,7 +14,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/login',[ViewController::class,'loginView'])->name('login.view');//login
     Route::post('/login', [UserController::class, 'login'])->name('login.user')->middleware('status.user');
     
-    Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code')->middleware('vpn.access');
+    Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');#->middleware('vpn.access');
     Route::get('/logincode',[ViewController::class,'loginCodeVerifiedView'])->name('status.user');
     Route::get('/information',[ViewController::class,'informationView'])->name('information.view');//vista de que se le envio un correo
     Route::get('mailresend',[ViewController::class,'mailResendView'])->name('mail.resend.view');//vista de que se le reenvio un correo con exito
