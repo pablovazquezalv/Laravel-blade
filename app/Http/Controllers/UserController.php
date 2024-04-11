@@ -156,7 +156,7 @@ class UserController extends Controller
         }
 
         $user = User::where('email',$request->email)->first();
-        dd($user);
+        
         if($user)
         {
             if(Hash::check($request->password,$user->password))
@@ -175,7 +175,7 @@ class UserController extends Controller
 
 
                Mail::to($user->email)->send(new CodeLogin($user,$code));
-               return view('/auth/login');
+               return view('/auth/login_code');
              }
              else
              {
