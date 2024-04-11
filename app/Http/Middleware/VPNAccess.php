@@ -20,10 +20,11 @@ class VPNAccess
     public function handle(Request $request, Closure $next): Response
     {
         
+            //agarrar el usuario de la sesion
+            $user = Auth::user();
 
+            dd($user->rol_id);
 
-            $user = User::where('email',$request->email)->first(); 
-            
             if($user->rol_id == 1 && request()->getHost() == '192.168.25.2')
             {
                 

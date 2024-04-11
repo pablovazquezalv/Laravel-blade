@@ -18,7 +18,7 @@ class StatusUser
     public function handle(Request $request, Closure $next): Response
     {
       $user = Auth::user();
-      dd($user);
+      
       if($user)
       {
         
