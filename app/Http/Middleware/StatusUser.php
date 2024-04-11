@@ -19,7 +19,6 @@ class StatusUser
     {
       $user = User::where('email',$request->email)->first();
       
-      
       if($user)
       {
         
