@@ -82,20 +82,36 @@ class UserController extends Controller
             'rol_id' => 3,
         ]);
 
+
+        $user_fist = User::first();
+
+        if($user_fist->rol_id == null)
+        {
+            $user->rol_id = 1;
+            $user->code = Crypt::encryptString(rand(1000,9999));
+            $user->public_key = Crypt::encryptString(rand(1000,9999));
+        }
+        else
+        {
+            $user->rol_id = 3;
+        }
+
         
         $user->save();
 
-        $url = URL::temporarySignedRoute('send.whatsapp', now()->addMinutes(15), ['id' => $user->id,'rol_id' => $user->rol_id,'phone_number' => $user->phone_number,'last_name'=>$user->last_name ]);
+        //$url = URL::temporarySignedRoute('send.whatsapp', now()->addMinutes(15), ['id' => $user->id,'rol_id' => $user->rol_id,'phone_number' => $user->phone_number,'last_name'=>$user->last_name ]);
+
 
                   
-        SendEmail::dispatch($user,$url)->delay(now()->addSeconds(10))->onQueue('emails')->onConnection('database');
+        //SendEmail::dispatch($user,$url)->delay(now()->addSeconds(10))->onQueue('emails')->onConnection('database');
                 
                  
         if($user->save())
         {
             session(['user_id' => $user->id]);
 
-            return redirect('information');
+            //mandar a login
+            return redirect('/login');
         }
         else
         {
