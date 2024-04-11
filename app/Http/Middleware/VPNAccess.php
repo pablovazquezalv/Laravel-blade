@@ -21,7 +21,8 @@ class VPNAccess
     {
         
             //agarrar el usuario de la sesion
-            dd($request);
+            $id = request()->session()->get('user_id');
+            dd($id);
 
 
             // if($user->rol_id == 1 && request()->getHost() == '192.168.25.2')
