@@ -17,9 +17,8 @@ class StatusUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-      $user = User::where('email',$request->email)->first(); 
-            
-      
+      $user = Auth::user();
+      dd($user);
       if($user)
       {
         
