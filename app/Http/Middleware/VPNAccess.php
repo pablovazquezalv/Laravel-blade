@@ -22,7 +22,7 @@ class VPNAccess
         
             //agarrar el usuario de la sesion
             $id = request()->session()->get('user_id');
-            dd($id);
+            
 
             $user = User::find($id);
 
