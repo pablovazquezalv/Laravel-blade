@@ -33,7 +33,8 @@ class RolesCreate
         }
         return $next($request);
         }
-        return redirect()->route('app.index');
+        
+        return redirect()->route('welcome.view');
 
     }
 }
