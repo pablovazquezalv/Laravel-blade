@@ -23,7 +23,7 @@ class StatusUser
       {
         
 //      dd($user->status);
-      $status = $user->status;
+         $status = $user->status;
          
       if($status == true)
       {

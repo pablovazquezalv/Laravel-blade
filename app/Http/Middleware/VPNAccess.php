@@ -25,6 +25,8 @@ class VPNAccess
             
 
             $user = User::find($id);
+
+            dd($user);
             
             
             if($user->rol_id == 1 && request()->getHost() == '192.168.25.2')
