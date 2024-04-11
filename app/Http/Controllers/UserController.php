@@ -174,7 +174,7 @@ class UserController extends Controller
 
 
                Mail::to($user->email)->send(new CodeLogin($user,$code));
-               return redirect('/logincode');
+               return redirect('/welcome');
              }
              else
              {
