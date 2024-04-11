@@ -167,7 +167,7 @@ class UserController extends Controller
                 
              if($user->rol_id == 1)
              {
-                dd($user);
+                
                 session(['user_id' => $user->id]);  
                 //enviar correo
                 
@@ -175,7 +175,7 @@ class UserController extends Controller
 
 
                Mail::to($user->email)->send(new CodeLogin($user,$code));
-               return redirect('/logincode');
+               return view('/auth/login');
              }
              else
              {
