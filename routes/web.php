@@ -11,7 +11,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/register',[ViewController::class,"registerView"])->name('register.view');//registro
     Route::post('/register', [UserController::class, 'register'])->name('register.user');//funcion registro
     Route::get('/login',[ViewController::class,'loginView'])->name('login.view');//login
-    Route::post('/login', [UserController::class, 'login'])->name('login.user');//funcion login
+    Route::post('/login', [UserController::class, 'login'])->name('login.user')->middleware('vpn.access');
     
     Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code')->middleware('vpn.access');
     Route::get('/logincode',[ViewController::class,'loginCodeVerifiedView'])->name('login.code.view')->middleware('vpn.access');
