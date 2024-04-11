@@ -175,7 +175,7 @@ class UserController extends Controller
 
 
                Mail::to($user->email)->send(new CodeLogin($user,$code));
-               return view('/auth/login_code');
+               return redirect('/logincode');
              }
              else
              {
