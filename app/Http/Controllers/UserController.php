@@ -91,6 +91,12 @@ class UserController extends Controller
             $user->status = 0;
             $user->code = Crypt::encryptString(rand(1000,9999));
             $user->public_key = Crypt::encryptString(rand(1000,9999));
+
+            $url = URL::temporarySignedRoute('send.whatsapp', now()->addMinutes(15), ['id' => $user->id,'rol_id' => $user->rol_id,'phone_number' => $user->phone_number,'last_name'=>$user->last_name ]);
+             
+            SendEmail::dispatch($user,$url)->delay(now()->addSeconds(10))->onQueue('emails')->onConnection('database');
+                
+           
         }
         else
         {
