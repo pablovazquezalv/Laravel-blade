@@ -8,23 +8,23 @@ use GuzzleHttp\Middleware;
 
 //RUTAS DE VERIFICACION DE CORREO
 Route::middleware(['guest'])->group(function () {
-    Route::get('/',[ViewController::class,"indexView"])->name('app.index');//vista iniciar o registrarse
-    Route::get('/register',[ViewController::class,"registerView"])->name('register.view');//registro
-    Route::post('/register', [UserController::class, 'register'])->name('register.user');//funcion registro
-    Route::get('/login',[ViewController::class,'loginView'])->name('login.view');//login
-    Route::post('/login', [UserController::class, 'login'])->name('login.user');#->middleware('status.user');
-    
-    Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');#->middleware('vpn.access');
-    Route::get('/logincode',[ViewController::class,'loginCodeVerifiedView'])->name('login.code.view');
-    Route::get('/information',[ViewController::class,'informationView'])->name('information.view');//vista de que se le envio un correo
-    Route::get('mailresend',[ViewController::class,'mailResendView'])->name('mail.resend.view');//vista de que se le reenvio un correo con exito
-    Route::get('/verified',[ViewController::class,'verifiedCodeView'])->name('verified.view');//vista para verificar el codigo
-    Route::get('/mailsuccess',[ViewController::class,'mailSuccessView'])->name('mail.success.view');//vista de que se le envio un correo con exito
-    Route::get('/sendwhatsapp',[ServiceController::class,'sendWhatssApp'])->name('send.whatsapp');//enviar whatsapp
-    Route::post('/resendwhatsapp',[ServiceController::class,'resendWhatssap'])->name('resend.whatsapp');//Reenviar whatsapp
-    Route::post('resendemail',[ServiceController::class,'resendEmail'])->name('resend.email');//reenviar correo
-    Route::post('/verify',[ServiceController::class,'verifyCode'])->name('verify.whatssApp');//verificar codigo
 });
+Route::get('/',[ViewController::class,"indexView"])->name('app.index');//vista iniciar o registrarse
+Route::get('/register',[ViewController::class,"registerView"])->name('register.view');//registro
+Route::post('/register', [UserController::class, 'register'])->name('register.user');//funcion registro
+Route::get('/login',[ViewController::class,'loginView'])->name('login.view');//login
+Route::post('/login', [UserController::class, 'login'])->name('login.user');#->middleware('status.user');
+
+Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');#->middleware('vpn.access');
+Route::get('/logincode',[ViewController::class,'loginCodeVerifiedView'])->name('login.code.view');
+Route::get('/information',[ViewController::class,'informationView'])->name('information.view');//vista de que se le envio un correo
+Route::get('mailresend',[ViewController::class,'mailResendView'])->name('mail.resend.view');//vista de que se le reenvio un correo con exito
+Route::get('/verified',[ViewController::class,'verifiedCodeView'])->name('verified.view');//vista para verificar el codigo
+Route::get('/mailsuccess',[ViewController::class,'mailSuccessView'])->name('mail.success.view');//vista de que se le envio un correo con exito
+Route::get('/sendwhatsapp',[ServiceController::class,'sendWhatssApp'])->name('send.whatsapp');//enviar whatsapp
+Route::post('/resendwhatsapp',[ServiceController::class,'resendWhatssap'])->name('resend.whatsapp');//Reenviar whatsapp
+Route::post('resendemail',[ServiceController::class,'resendEmail'])->name('resend.email');//reenviar correo
+Route::post('/verify',[ServiceController::class,'verifyCode'])->name('verify.whatssApp');//verificar codigo
 
 //invitado puede acceder solo por dominio
 
