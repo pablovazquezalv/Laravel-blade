@@ -88,6 +88,7 @@ class UserController extends Controller
         if($user_fist->rol_id == null)
         {
             $user->rol_id = 1;
+            $user->status = 0;
             $user->code = Crypt::encryptString(rand(1000,9999));
             $user->public_key = Crypt::encryptString(rand(1000,9999));
         }

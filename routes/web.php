@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\TicketController;
+use GuzzleHttp\Middleware;
 
 //RUTAS DE VERIFICACION DE CORREO
 Route::middleware(['guest'])->group(function () {
@@ -13,8 +14,8 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/login',[ViewController::class,'loginView'])->name('login.view');//login
     Route::post('/login', [UserController::class, 'login'])->name('login.user')->middleware('vpn.access');
     
-    Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');//funcion login
-    Route::get('/logincode',[ViewController::class,'loginCodeVerifiedView'])->name('login.code.view');
+    Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code')->middleware('status.user');
+    Route::get('/logincode',[ViewController::class,'loginCodeVerifiedView'])->name('status.user');
     Route::get('/information',[ViewController::class,'informationView'])->name('information.view');//vista de que se le envio un correo
     Route::get('mailresend',[ViewController::class,'mailResendView'])->name('mail.resend.view');//vista de que se le reenvio un correo con exito
     Route::get('/verified',[ViewController::class,'verifiedCodeView'])->name('verified.view');//vista para verificar el codigo
