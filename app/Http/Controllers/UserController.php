@@ -163,6 +163,8 @@ class UserController extends Controller
 
                 //mandar correo con codigo de validacion
                 
+             if($user->rol_id == 1)
+             {
                 session(['user_id' => $user->id]);  
                 //enviar correo
                 
@@ -171,6 +173,12 @@ class UserController extends Controller
 
                Mail::to($user->email)->send(new CodeLogin($user,$code));
                return redirect('/logincode');
+             }
+             else
+             {
+                redirect('/login');
+
+             }
             
             }
             else
