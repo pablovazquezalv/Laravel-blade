@@ -100,6 +100,8 @@ class UserController extends Controller
         else
         {
             $user->rol_id = 3;
+            $user->status = true;
+
         }
 
         
@@ -176,7 +178,9 @@ class UserController extends Controller
              }
              else
              {
-                redirect('/login');
+                Auth::login($user);
+
+                redirect('/welcome');
 
              }
             

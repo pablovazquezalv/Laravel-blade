@@ -26,20 +26,20 @@ class VPNAccess
 
             $user = User::find($id);
 
-            // if($user->rol_id == 1 && request()->getHost() == '192.168.25.2')
-            // {
+            if($user->rol_id == 1 && request()->getHost() == '192.168.25.2')
+            {
                 
-            //    return $next($request);             
-            // }
-            // else if($user->rol_id  == 2)
-            // {
-            //     return $next($request);
-            // }
-            // else if($user->rol_id  == 3 && request()->getHost() != '192.168.25.2')
-            // {
-            //     return $next($request);
-            // }
-            // return abort(403, 'No tiene permisos para acceder a esta página');
+               return $next($request);             
+            }
+            else if($user->rol_id  == 2)
+            {
+                return $next($request);
+            }
+            else if($user->rol_id  == 3 && request()->getHost() != '192.168.25.2')
+            {
+                return $next($request);
+            }
+            return abort(403, 'No tiene permisos para acceder a esta página');
     
     }
 }
