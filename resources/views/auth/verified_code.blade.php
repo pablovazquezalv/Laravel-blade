@@ -17,38 +17,32 @@
             @endif 
        </div>
        <div class="mt-10 p-2">
-        <p class="text-l text-center text-white font-mono">Ingresa el codigo de verificacion, que hemos enviamos a tu whatssApp</p>  
+        <p class="text-l text-center text-white font-mono">Ingresa el codigo de verificacion de la aplicacion</p>  
     </div>
            
-         <div class="mt-5">
-            <form method="POST" action="{{route('verify.whatssApp')}}">            
-                @csrf
-                <div class="flex flex-col">
-                    <label for="code" class="text-white font-mono">Codigo de confirmacion:</label>
-                    <input type="text" class="border border-gray-400 p-2 rounded-lg h-8 w-80" name="code" id="code" value="{{old('code')}}">
-                   @foreach ($errors->get('code') as $message)
-                    <span class="text-red-500 text-xs font-bold">{{$message}}</span>
-                      @endforeach
-                </div>
-                <div class="flex flex-col mt-6">
-                     <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Confirmar</button> 
-                </div>
-                @if(isset($user))
-                <input type="hidden" name="user_id" value="{{$user->id}}">     
-                @endif            
-            </form>  
-            <!-- Reenviar codigo-->
-             <div class="flex flex-col mt-6">
-                <form action="{{route('resend.whatsapp')}}" method="POST">
-                    @csrf
-                <p class="text-white">¿No recibiste el codigo?</p>
-                @if(isset($user))
-                <input type="hidden" name="user_id" value="{{$user->id}}">
-                @endif
-                <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Confirmar</button> 
-            </form>
-            </div> 
-         </div>
+    <div class="mt-5">
+        <form method="POST" action="{{route('login.code')}}">            
+            @csrf
+            <div class="flex flex-col">
+                <label for="code" class="text-white font-mono">Codigo de confirmacion:</label>
+                <input type="text" class="border border-gray-400 p-2 rounded-lg h-8 w-80" name="code" id="code" value="{{old('code')}}" required>
+               @foreach ($errors->get('code') as $message)
+                <span class="text-red-500 text-xs font-bold">{{$message}}</span>
+                  @endforeach
+            </div>
+
+            @if(isset($user))
+            <input type="hidden" name="user_id" value="{{$user->id}}">
+            @endif
+
+
+            <div class="flex flex-col mt-6">
+                 <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Confirmar</button> 
+            </div>
+                            
+        </form>  
+        
+     </div>  
          @else
             <!-- decir que esta haciendo algo mal -->
             <h3 class="text-white text-3xl">Parece que estas haciendo algo mal</h3>

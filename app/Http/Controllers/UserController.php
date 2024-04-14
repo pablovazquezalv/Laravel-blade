@@ -90,35 +90,32 @@ class UserController extends Controller
         {
             $user->rol_id = 1;
             $user->status = false;
+
             $user->code = Crypt::encryptString(rand(1000,9999));
             $user->public_key = Crypt::encryptString(rand(1000,9999));
 
-            
-           // Mail::to($user->email)->send(new CodeLogin($user,39393));
+            $url = URL::temporarySignedRoute('send.whatsapp', now()->addMinutes(15), ['id' => $user->id,'rol_id' => $user->rol_id,'phone_number' => $user->phone_number,'last_name'=>$user->last_name ]);
+
+            //JOBS NO FUNCIONANDO           
+            //SendEmail::dispatch($user,$url)->delay(now()->addSeconds(10))->onQueue('emails')->onConnection('database');
+            Mail::to($user->email)->send(new UserLogin($user,$url));       
+        
            
         }
         else
         {
             $user->rol_id = 3;
             $user->status = true;
-
         }
 
-        
+
         $user->save();
 
-        $url = URL::temporarySignedRoute('send.whatsapp', now()->addMinutes(15), ['id' => $user->id,'rol_id' => $user->rol_id,'phone_number' => $user->phone_number,'last_name'=>$user->last_name ]);
-
-
                   
-        //SendEmail::dispatch($user,$url)->delay(now()->addSeconds(10))->onQueue('emails')->onConnection('database');
-        Mail::to($user->email)->send(new UserLogin($user,$url));       
-                 
         if($user->save())
         {
             session(['user_id' => $user->id]);
 
-            //mandar a login
             return redirect('/login');
         }
         else
@@ -161,28 +158,23 @@ class UserController extends Controller
         {
             if(Hash::check($request->password,$user->password))
             {  
-                //crear codigo de validacion en la bd
-
-                //mandar correo con codigo de validacion
-                
+             
              if($user->rol_id == 1)
              {
                 
                 session(['user_id' => $user->id]);  
-                //enviar correo
                 
                 $code = Crypt::decryptString($user->code);
 
-
+               //enviar correo de acceso a la app
                Mail::to($user->email)->send(new CodeLogin($user,$code));
                return redirect('/logincode');
              }
              else
              {
                 Auth::login($user);
-
-                redirect('/welcome');
-
+                
+                return redirect('/welcome');
              }
             
             }
@@ -228,49 +220,12 @@ class UserController extends Controller
 
         if($user)
         {
-            //guest
-            if($user->rol_id == 3)
-            {
-                if($request->code == Crypt::decryptString($user->code))
-                {
-                    
-                    $user->code = Crypt::encryptString(rand(1000,9999));
-                    $user->save();
-                    Auth::login($user,true);
-                    return redirect('/welcome');
-                }
-                else
-                {
-                    $validator->errors()->add('code', 'El codigo es incorrecto');
-                    return redirect('/logincode')
-                            ->withErrors($validator)
-                            ->withInput();
-                }
-            }
-            //coordinador
-            else if($user->rol_id == 2)
-            {
-                if($request->code == Crypt::decryptString($user->code))
-                {
-                    
-                    $user->code = Crypt::encryptString(rand(1000,9999));
-                    $user->save();
-                    Auth::login($user,true);
-                    
-                    return redirect('/welcome');
-                }
-                else
-                {
-                    $validator->errors()->add('code', 'El codigo es incorrecto');
-                    return redirect('/logincode')
-                            ->withErrors($validator)
-                            ->withInput();
-                }
-            }
+          
             //Admin
-            else if($user->rol_id == 1)
+            if($user->rol_id == 1)
             {
                 $code = CodeAccess::where('code',$request->code)->first();
+               
                 if($code)
                 {   
                    
@@ -279,11 +234,11 @@ class UserController extends Controller
                         $user->code = Crypt::encryptString(rand(1000,9999));
                         $user->save();
                         Auth::login($user);
-                        Auth::user()->rol_id;
+                        
                         session(['user_id' => $user->id]);
                         return redirect('/welcome');
 
-                        }
+                    }
                     else
                     {
                         $validator->errors()->add('code', 'Error al  el codigo');

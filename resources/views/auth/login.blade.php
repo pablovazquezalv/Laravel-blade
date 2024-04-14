@@ -19,14 +19,14 @@
             @csrf
             <div class="flex flex-col  ">
                 <label for="name" class="mt-2 text-white font-mono">Correo electronico:</label>
-                <input type="email" class="border border-gray-400 p-2 rounded-lg h-8 w-80" name="email" id="email" value="{{old('email')}}">
+                <input type="email" class="border border-gray-400 p-2 rounded-lg h-8 w-80" name="email" id="email" value="{{old('email')}}" required>
                 @error('email')
                 <small style="color: red" class="font-bold">{{$message}}</small>
                 @enderror
             </div>
             <div class="flex flex-col mt-2">
                 <label for="password" class="text-white font-mono">Contraseña:</label>
-                <input type="password" class="border border-gray-400 p-2 rounded-lg h-8 w-80" name="password" id="password" value="{{old('password')}}">
+                <input type="password" class="border border-gray-400 p-2 rounded-lg h-8 w-80" name="password" id="password" value="{{old('password')}}" required>
                 @error('password')
                 <small style="color: red" class="font-bold">{{$message}}</small>
                 @enderror

@@ -19,22 +19,34 @@ class StatusUser
     {
       $user = User::where('email',$request->email)->first();
       
+      
       if($user)
       {
-        
-//      dd($user->status);
-         $status = $user->status;
-         
-      if($status == true)
+        $status = $user->status;
+          
+        if($status == true)
+        {
+          return $next($request);
+        }
+        else
+        {
+          return redirect()->route('login.view');
+        }
+      }
+      else if(Auth::user())
       {
-        return $next($request);
+        $status = Auth::user()->status;
+          
+        if($status == true)
+        {
+          return $next($request);
+        }
+        else
+        {
+          return redirect()->route('login.view');
+        }
       }
-      else
-      {
-        //mandar a login  
-        abort(404);
-      }
-      }
+      
       abort(403, 'no hay usuario middleware status user');
     }
 }

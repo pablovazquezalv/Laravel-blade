@@ -24,14 +24,14 @@ class ViewController extends Controller
     //Visualizacion de la vista de login
     public function LoginView()
     {
+
         return view('/auth/login');
     }
 
     //Visualizacion de la vista de bienvenida
     public function welcomeView()
     {
-//        $user = Auth::user();
-
+        
         $tickets =  DB::table('tickets')
         ->join('users', 'tickets.user_id', '=', 'users.id')
         ->select('tickets.id','tickets.title', 'tickets.description', 'tickets.priority', 'users.name', 'users.last_name', 'tickets.status', 'tickets.created_at')
@@ -68,10 +68,11 @@ class ViewController extends Controller
     }
 
     //Visualizacion de la vista de codigo verificado enviar
-    public function verifiedCodeView(Request $request)
+    public function verifiedCodeView()
     {
         $userId = session('user_id');
         $user = User::find($userId);
+        dd($user);
         return view('/auth/verified_code', compact('user'));
     }
 
@@ -105,10 +106,8 @@ class ViewController extends Controller
     public function loginCodeVerifiedView()
     {
         $userId = session('user_id');
-        
         $user = User::find($userId);
-        
+
         return view('/auth/login_code_verified', compact('user'));
-       // return view('/auth/login_code_verified');
     }
 }

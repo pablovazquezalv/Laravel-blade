@@ -36,7 +36,7 @@
                 </div>
 
                 @if(isset($user))
-                <input type="hidden" name="user_id" value="{{$user->id}}">
+                <input type="hidden" name="user_id" value="{{$user->id}}" required>
                 @endif
 
 
@@ -45,16 +45,10 @@
                 </div>
                                 
             </form>  
-             {{-- <div class="flex flex-col mt-6">
-                <form action="{{url('resend.whatsapp')}}" method="POST">
-                    @csrf
-                <p class="text-white">¿No recibiste el codigo?</p>
-                <button class="bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" type="submit">Confirmar</button> 
-            </form>
-            </div>  --}}
+            
          </div>  
 </div>
 @else
 <!-- decir que esta haciendo algo mal -->
-<h3 class="text-white text-3xl">Parece que estas haciendo algo mal</h3>
+<h3 class="text-white text-3xl">Parece que estas haciendo algo malo</h3>
 @endif
