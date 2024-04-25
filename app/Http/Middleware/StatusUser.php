@@ -19,12 +19,12 @@ class StatusUser
     {
       $user = User::where('email',$request->email)->first();
       
-      dd($user);
+      
       if($user)
       {
         $status = $user->status;
           
-        if($status == true)
+        if($status === true)
         {
           return $next($request);
         }
