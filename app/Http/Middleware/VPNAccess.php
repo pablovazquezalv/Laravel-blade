@@ -34,7 +34,7 @@ class VPNAccess
                     }
                     
                     // $request->session()->invalidate();
-                    abort(403, 'No tiene permisos para acceder a esta página');
+                    abort(403, 'No tiene permisos para acceder a esta página,rol 3');
                     
                 }
                 else if($rol == 2)
