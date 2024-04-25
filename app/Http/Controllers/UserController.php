@@ -88,6 +88,7 @@ class UserController extends Controller
 
         if($user_fist->rol_id == null)
         {
+            Log::info('Usuario admin creado correctamente '.$user->id);
             $user->rol_id = 1;
             $user->status = false;
 
