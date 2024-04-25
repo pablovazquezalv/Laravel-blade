@@ -26,8 +26,8 @@ class VPNAccess
             if($user)
             {
                 $rol = $user->rol_id;
-                dd($rol);
-                if($rol == 3)
+                
+                if($rol === 3)
                 {
                     if($request->getHost() == 'danielypablo.tech')
                     {
