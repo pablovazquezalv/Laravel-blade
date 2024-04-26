@@ -4,6 +4,11 @@
 <body>
     
 <div class="h-screen bg-gray-900 flex justify-center">
+    @if (Session::has('error'))
+    <div class="alert alert-danger">
+        {{ Session::get('error') }}
+    </div>
+@endif
 <div class="h-5/6 w-96 border-2 border-red-500 mt-10 flex flex-col rounded-md items-center bg-gray-700">
 
     <div class="max-h">

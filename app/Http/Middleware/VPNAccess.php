@@ -7,6 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 use function Laravel\Prompts\alert;
 
@@ -47,7 +48,10 @@ class VPNAccess
             }
             else
             {
-                abort(403, 'No se encontro el usuario middleware vpn access');
+                Session::flash('error', 'No tiene acceso VPN.');
+        
+                // Redireccionar a la página de inicio de sesión
+                return redirect()->route('login.view');
             }
         }
 
