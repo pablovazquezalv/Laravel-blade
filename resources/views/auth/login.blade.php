@@ -3,9 +3,9 @@
 <title>Iniciar Sesion</title>
 <body>
     
-<div class="h-screen bg-gray-900 flex justify-center">
+<div class="h-screen bg-gray-900 flex justify-center ">
     @if (Session::has('error'))
-    <div class="alert alert-danger">
+    <div class="alert alert-danger text-white text-center">
         {{ Session::get('error') }}
     </div>
 @endif

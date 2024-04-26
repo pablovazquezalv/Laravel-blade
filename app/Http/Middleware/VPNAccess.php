@@ -48,7 +48,7 @@ class VPNAccess
             }
             else
             {
-                Session::flash('error', 'No tiene acceso VPN.');
+                Session::flash('error', 'Parece que no puede acceder.');
         
                 // Redireccionar a la página de inicio de sesión
                 return redirect()->route('login.view');
