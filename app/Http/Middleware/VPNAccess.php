@@ -28,7 +28,7 @@ class VPNAccess
             {
                 $rol = $user->rol_id;
                 
-                if($rol === 3 && $request->ip() != '192.168.25.2')
+                if($rol === 3 && $request->ip() != '192.168.25.12')
                 {
                     return $next($request);
                 }
@@ -36,7 +36,7 @@ class VPNAccess
                 {
                     return $next($request);
                 }
-                else if($rol === 1 && $request->ip() == '192.168.25.2')
+                else if($rol === 1 && $request->ip() == '192.168.25.12')
                 {
                     return $next($request);
                 }
