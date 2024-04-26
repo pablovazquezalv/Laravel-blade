@@ -23,7 +23,7 @@ class VPNAccess
             //agarrar el usuario de la sesion
             $user = User::where('email',$request->email)->first();
           
-            dd($request->ip());
+            //dd($request->ip());
             if($user)
             {
                 $rol = $user->rol_id;
