@@ -23,12 +23,12 @@ class VPNAccess
             //agarrar el usuario de la sesion
             $user = User::where('email',$request->email)->first();
           
-            dd($request->ip());
+            
             if($user)
             {
                 $rol = $user->rol_id;
                 
-                if($rol === 3 && $request->ip() != '192.168.25.17')
+                if($rol === 3 && $request->ip() != '192.168.25.2')
                 {
                     return $next($request);
                 }
@@ -36,7 +36,7 @@ class VPNAccess
                 {
                     return $next($request);
                 }
-                else if($rol === 1 && $request->ip() == '192.168.25.17')
+                else if($rol === 1 && $request->ip() == '192.168.25.2')
                 {
                     return $next($request);
                 }
