@@ -14,7 +14,7 @@
     <br>
     <p>tu correo es valido!,ahora debemos verificar tu telefono,pulsando el siguiente boton, para recibir un codigo mediante <b>WhatssApp</b></p>
     <br>   
-     <p><a href="{{$url}}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Confirmar</a></p>
+     {{-- <p><a href="{{$url}}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Confirmar</a></p> --}}
 
 </body>
 </html>

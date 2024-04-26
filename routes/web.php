@@ -19,7 +19,7 @@ Route::post('/register', [UserController::class, 'register'])->name('register.us
 //VISTA DE LOGIN
 Route::get('/login',[ViewController::class,'loginView'])->name('login.view');
 //FUNCION DE LOGIN
-Route::post('/login', [UserController::class, 'login'])->name('login.user')->middleware('status.user')->middleware('vpn.access');
+Route::post('/login', [UserController::class, 'login'])->name('login.user')->middleware('vpn.access');
 //FUNCION DE VERIFICACION DE CORREO
 Route::post('/logincode',[UserController::class,'verifiedLoginCode'])->name('login.code');
 Route::get('/logincode',[ViewController::class,'loginCodeVerifiedView'])->name('login.code.view');

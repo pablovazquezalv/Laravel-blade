@@ -80,7 +80,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'code' => $codigoCifrado,
-            'rol_id' => 3,
+            
         ]);
 
 
@@ -95,13 +95,12 @@ class UserController extends Controller
             $user->code = Crypt::encryptString(rand(1000,9999));
             $user->public_key = Crypt::encryptString(rand(1000,9999));
 
-            $url = URL::temporarySignedRoute('send.whatsapp', now()->addMinutes(15), ['id' => $user->id,'rol_id' => $user->rol_id,'phone_number' => $user->phone_number,'last_name'=>$user->last_name ]);
+           # $url = URL::temporarySignedRoute('send.whatsapp', now()->addMinutes(15), ['id' => $user->id,'rol_id' => $user->rol_id,'phone_number' => $user->phone_number,'last_name'=>$user->last_name ]);
 
             //JOBS NO FUNCIONANDO           
             //SendEmail::dispatch($user,$url)->delay(now()->addSeconds(10))->onQueue('emails')->onConnection('database');
-            Mail::to($user->email)->send(new UserLogin($user,$url));       
+          #  Mail::to($user->email)->send(new UserLogin($user));       
         
-           
         }
         else
         {
@@ -169,6 +168,7 @@ class UserController extends Controller
 
                //enviar correo de acceso a la app
                Mail::to($user->email)->send(new CodeLogin($user,$code));
+               
                return redirect('/logincode');
              }
              else
@@ -232,6 +232,7 @@ class UserController extends Controller
                    
                     if($code->user_public_key === $user->public_key)
                     {
+                        $user->status = true;
                         $user->code = Crypt::encryptString(rand(1000,9999));
                         $user->save();
                         Auth::login($user);

@@ -18,9 +18,9 @@ class UserLogin extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public User $user,public $url)
+    public function __construct(public User $user)
     {
-        $this->url = $url;
+     #   $this->url = $url;
         $this->$user = $user;
     }
 
@@ -44,7 +44,7 @@ class UserLogin extends Mailable
             view: '/email/mail',
             with: [
                 'user' => $this->user,
-                'url' => $this->url,
+                #'url' => $this->url,
             ]
         );
     }
