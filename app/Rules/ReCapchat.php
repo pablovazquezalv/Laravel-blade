@@ -15,6 +15,12 @@ class ReCapchat implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+
+        try{
+
+        
+
+
         $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify',[
             'secret' => env('CAPTCHA_SECRET'),
             'response' => $value
@@ -24,5 +30,9 @@ class ReCapchat implements ValidationRule
         {
             $fail('Ups! Parece que eres un robot o no?');
         }
+    }catch(\Exception $e)
+    {
+        redirect('/register');
+    }
     }
 }
